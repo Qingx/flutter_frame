@@ -1,6 +1,7 @@
 # qinghe_ios
 
 A new Flutter project.
+update to nullsafety
 
 ## Getting Started
 
