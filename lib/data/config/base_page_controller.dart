@@ -11,7 +11,7 @@ abstract class BasePageController<T> {
     if (isLazyLoaded) return;
     isLazyLoaded = true;
 
-    Observable.timer(1, Duration(milliseconds: 400)).listen((event) {
+    Rx.timer(1, Duration(milliseconds: 400)).listen((event) {
       loadData(false);
     });
   }

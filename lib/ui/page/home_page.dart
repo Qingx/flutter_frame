@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                         width: 48,
                         height: 48,
                         color: Colors.blue,
-                        child: Text(
+                        child: const Text(
                           "重置",
                           style: TextStyle(
                             color: Colors.white,

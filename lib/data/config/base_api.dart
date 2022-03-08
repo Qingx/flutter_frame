@@ -55,18 +55,18 @@ class BaseApi {
   }
 
   /// 发起Get请求
-  Observable<BaseData<T>> get<T>(String pathOrUrl,
+  Stream<BaseData<T>> get<T>(String pathOrUrl,
           {Map<String, dynamic>? queryParameters}) =>
-      Observable.fromFuture(_http<T>(pathOrUrl, HttpConfig.Get,
+      Stream.fromFuture(_http<T>(pathOrUrl, HttpConfig.Get,
           queryParameters: queryParameters!));
 
   /// 发起Post请求
-  Observable<BaseData<T>> post<T>(
+  Stream<BaseData<T>> post<T>(
     String pathOrUrl, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? requestBody,
   }) =>
-      Observable.fromFuture(_http<T>(pathOrUrl, HttpConfig.Post,
+      Stream.fromFuture(_http<T>(pathOrUrl, HttpConfig.Post,
           queryParameters: queryParameters, requestBody: requestBody));
 
   /// 发起网络请求
@@ -104,16 +104,16 @@ class BaseApi {
   }
 
   /// Page发起Get请求
-  Observable<BasePage<T>> getPage<T>(String pathOrUrl,
+  Stream<BasePage<T>> getPage<T>(String pathOrUrl,
           {Map<String, dynamic>? queryParameters}) =>
-      Observable.fromFuture(_httpPage(pathOrUrl, HttpConfig.Get,
+      Stream.fromFuture(_httpPage(pathOrUrl, HttpConfig.Get,
           queryParameters: queryParameters));
 
   /// Page发起Post请求
-  Observable<BasePage<T>> postPage<T>(String pathOrUrl,
+  Stream<BasePage<T>> postPage<T>(String pathOrUrl,
           {Map<String, dynamic>? queryParameters,
           Map<String, dynamic>? requestBody}) =>
-      Observable.fromFuture(_httpPage(pathOrUrl, HttpConfig.Post,
+      Stream.fromFuture(_httpPage(pathOrUrl, HttpConfig.Post,
           queryParameters: queryParameters, requestBody: requestBody));
 
   /// Page发起网络请求
@@ -196,24 +196,24 @@ class BaseApi {
   }
 
   /// 上传文件
-  Observable<String> uploadFile(String path) {
-    return Observable.fromFuture(actualUpload(path)).rebase().refreshSign();
+  Stream<String?> uploadFile(String path) {
+    return Stream.fromFuture(actualUpload(path)).rebase().refreshSign();
   }
 
   ///上传多个文件
-  Observable<List<String>> uploadFiles(List<String> paths) {
-    return Observable.fromIterable(paths)
-        .concatMap((value) => uploadFile(value))
+  Stream<List<String?>> uploadFiles(List<String> paths) {
+    return Stream.fromIterable(paths)
+        .asyncExpand((value) => uploadFile(value))
         .toList()
-        .asObservable();
+        .asStream();
   }
 
   /// 全局获取文件签名
-  static Observable<String> globalSign =
+  static Stream<String?> globalSign =
       ins.refreshSign().shareReplay(maxSize: 1);
 
   static var tokenTime = 0;
-  static Observable<String>? globalToken;
+  static Stream<String>? globalToken;
 
 
   // Observable<T> autoToken<T>(Observable<T> call()) {
@@ -276,7 +276,7 @@ class BaseApi {
   // }
 
   /// 刷新文件签名
-  Observable<String> refreshSign() => post<String>("/api/file/sign").rebase();
+  Stream<String?> refreshSign() => post<String>("/api/file/sign").rebase();
 }
 
 /// 请求拦截器
@@ -323,10 +323,10 @@ class EmptyMiss extends BaseMiss {
   EmptyMiss() : super(code: -1, msg: "暂无数据, 请稍后再试");
 }
 
-extension ObservableData<T> on Observable<BaseData<T>> {
+extension ObservableData<T> on Stream<BaseData<T>> {
   /// 转换接口调用成功后的数据
-  Observable<T> rebase() {
-    return this.map((event) {
+  Stream<T?> rebase() {
+    return map((event) {
       if (event.success) {
         return event.data;
       }
@@ -336,8 +336,8 @@ extension ObservableData<T> on Observable<BaseData<T>> {
   }
 
   /// 判断接口是否调用成功, 成功这返回true, 否则抛出异常
-  Observable<bool> success() {
-    return this.map((event) {
+  Stream<bool> success() {
+    return map((event) {
       if (event.success) {
         return true;
       }
@@ -347,9 +347,9 @@ extension ObservableData<T> on Observable<BaseData<T>> {
   }
 }
 
-extension ObservablePage<T> on Observable<BasePage<T>> {
+extension ObservablePage<T> on Stream<BasePage<T>> {
   /// 转换接口调用成功后的数据
-  Observable<Page<T>> rebase({PageParam? pageParam}) {
+  Stream<Page<T>?> rebase({PageParam? pageParam}) {
     return this.map((event) {
       if (event.success) {
         if (pageParam != null) {
@@ -368,16 +368,16 @@ extension ObservablePage<T> on Observable<BasePage<T>> {
   }
 }
 
-extension ObservableEx<T> on Observable<T> {
+extension ObservableEx<T> on Stream<T> {
   /// 刷新sign
-  Observable<T> refreshSign() {
+  Stream<T> refreshSign() {
     int errorCount = 0;
-    return Observable.retryWhen(() => this, (e, s) {
+    return Rx.retryWhen(() => this, (e, s) {
       if (e.runtimeType != SignMiss || errorCount++ > 2) {
-        return Observable.error(e);
+        return Stream.error(e);
       }
       return BaseApi.globalSign.doOnData((event) {
-        UserConfig.getIns().sign = event;
+        UserConfig.getIns().sign = event!;
       });
     });
   }
