@@ -10,8 +10,8 @@ class BaseSP {
   static SharedPreferences? mSP;
   static Map<String, BaseSP> mCache = {};
 
-  static init() {
-    SharedPreferences.getInstance().then((value) => mSP = value);
+  Future init() async {
+    mSP = await SharedPreferences.getInstance();
   }
 
   BaseSP._create(this.name);
@@ -27,23 +27,23 @@ class BaseSP {
   }
 
   void putInt(String key, int value) {
-    event((sp) => sp.setInt(_internalKey(key), value));
+    mSP!.setInt(_internalKey(key), value);
   }
 
   void putBool(String key, bool value) {
-    event((sp) => sp.setBool(_internalKey(key), value));
+    mSP!.setBool(_internalKey(key), value);
   }
 
   void putString(String key, String value) {
-    event((sp) => sp.setString(_internalKey(key), value));
+    mSP!.setString(_internalKey(key), value);
   }
 
   void putDouble(String key, double value) {
-    event((sp) => sp.setDouble(_internalKey(key), value));
+    mSP!.setDouble(_internalKey(key), value);
   }
 
   void putStringList(String key, List<String> value) {
-    event((sp) => sp.setStringList(_internalKey(key), value));
+    mSP!.setStringList(_internalKey(key), value);
   }
 
   /// 添加object缓存
@@ -58,14 +58,12 @@ class BaseSP {
 
   /// 清空当前实例对应的缓存
   void clear() {
-    event((sp) {
-      final keys = sp.getKeys();
+    final keys = mSP!.getKeys();
 
-      keys.forEach((element) {
-        if (_isInternalName(element)) {
-          sp.remove(element);
-        }
-      });
+    keys.forEach((element) {
+      if (_isInternalName(element)) {
+        mSP!.remove(element);
+      }
     });
   }
 
@@ -91,19 +89,5 @@ class BaseSP {
       return JsonConvert.fromJsonAsT<T>(json.decode(valueStr)) as T;
     }
     return defaultVal;
-  }
-
-  /// 获取sp
-  void event(void doEvent(SharedPreferences sp)) {
-    final sp = mSP;
-
-    if (sp != null) {
-      doEvent(sp);
-    } else {
-      SharedPreferences.getInstance().then((value) {
-        mSP = value;
-        doEvent(value);
-      });
-    }
   }
 }

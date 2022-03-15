@@ -16,25 +16,19 @@ class BaseApi {
   static BaseApi? mIns;
 
   static BaseApi get ins {
-    if (mIns == null) {
-      mIns = BaseApi();
-    }
+    mIns ??= BaseApi();
     return mIns!;
   }
 
   /// 获取通用接口dio
   static Dio _getDio() {
-    if (_dio == null) {
-      _dio = _createDio(false);
-    }
+    _dio ??= _createDio(false);
     return _dio!;
   }
 
   /// 获取文件上传dio
   static Dio _getFileDio() {
-    if (_fileDio == null) {
-      _fileDio = _createDio(true);
-    }
+    _fileDio ??= _createDio(true);
     return _fileDio!;
   }
 
@@ -145,7 +139,7 @@ class BaseApi {
   }
 
   /// 创建参数
-  Map<String, dynamic> createParam(void doCreate(Map<String, dynamic> param)) {
+  Map<String, dynamic> createParam(void Function(Map<String, dynamic> param) doCreate) {
     final param = <String, dynamic>{};
     doCreate(param);
 
@@ -350,7 +344,7 @@ extension ObservableData<T> on Stream<BaseData<T>> {
 extension ObservablePage<T> on Stream<BasePage<T>> {
   /// 转换接口调用成功后的数据
   Stream<Page<T>?> rebase({PageParam? pageParam}) {
-    return this.map((event) {
+    return map((event) {
       if (event.success) {
         if (pageParam != null) {
           if (event.data is Page) {

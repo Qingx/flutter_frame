@@ -17,10 +17,24 @@ class DataConfig extends BaseConfig {
   /// 检查是否为第一次使用APP
   bool get firstUserApp =>
       spInstance!.getBool(DataKeys.K_FIRST_USE, defaultVal: true);
+
+  ///主题模式 true:跟随系统 false:不跟随系统
+  set themeMode(bool isSystem) =>
+      spInstance!.putBool(DataKeys.K_THEME_MODE, isSystem);
+
+  ///获取当前主题模式
+  bool get themeMode =>
+      spInstance!.getBool(DataKeys.K_THEME_MODE, defaultVal: false);
+
+  set themeType(int value) => spInstance!.putInt(DataKeys.K_THEME_TYPE, value);
+
+  int get themeType => spInstance!.getInt(DataKeys.K_THEME_TYPE, defaultVal: 0);
 }
 
 class DataKeys {
   static const K_FIRST_USE = "K_FIRST_USE";
+  static const K_THEME_MODE = "K_THEME_MODE";
+  static const K_THEME_TYPE = "K_THEME_TYPE";
 }
 
 class BaseConfig {
@@ -30,8 +44,10 @@ class BaseConfig {
     spInstance = BaseSP(name);
   }
 
-  void doAfterCreated(doNext(BaseSP? sp)) {
-    spInstance?.event((_) => doNext(spInstance));
+  void doAfterCreated(Function doNext) {
+    spInstance?.init().then((value) {
+      doNext();
+    });
   }
 
   void clear() => spInstance?.clear();
