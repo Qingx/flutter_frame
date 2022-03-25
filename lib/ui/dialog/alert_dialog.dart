@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qinghe_ios/config/base_extension.dart';
+import 'package:qinghe_ios/config/base_theme.dart';
 
 Widget alertDialog({
   String? title = "",
   String? message = "",
   Widget? richTitle,
   Widget? richMessage,
+  required Function onConfirm,
+  required Function onDismiss,
 }) {
   return Center(
     child: Material(
       borderRadius: const BorderRadius.all(Radius.circular(16)),
-      color: const Color(0xddf2f2f2),
+      color: Get.theme.to.dialogColor,
       child: Container(
-        padding: const EdgeInsets.only(top: 18),
-        width: 264,
-        height: 152,
+        width: 270,
+        height: 180,
         child: Column(
           children: [
             const Text(
@@ -25,10 +28,10 @@ Widget alertDialog({
                 decoration: TextDecoration.none,
                 fontWeight: FontWeight.w600,
               ),
-            ),
+            ).marginOn(left: 20,right: 20,top: 20),
             Container(
               alignment: Alignment.center,
-              margin: const EdgeInsets.only(left: 20, right: 20, top: 4),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
               width: double.infinity,
               child: RichText(
                 text: const TextSpan(
@@ -54,7 +57,7 @@ Widget alertDialog({
             const Expanded(child: SizedBox()),
             Container(
               width: double.infinity,
-              color: Colors.grey,
+              color: const Color(0xFF8F8F8F),
               height: 1,
             ),
             Container(
@@ -73,12 +76,12 @@ Widget alertDialog({
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ),
+                    ).onClick(onDismiss),
                   ),
                   Container(
                     height: 40,
                     width: 1,
-                    color: Colors.grey,
+                    color: const Color(0xFF8F8F8F),
                   ),
                   Expanded(
                     child: Container(
@@ -91,67 +94,11 @@ Widget alertDialog({
                           fontSize: 16,
                         ),
                       ),
-                    ),
+                    ).onClick(onConfirm),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
-Widget testGetDialog({
-  required Function onDismiss,
-  required Function onConfirm,
-}) {
-  return Center(
-    child: Material(
-      borderRadius: const BorderRadius.all(Radius.circular(16)),
-      color: Colors.transparent,
-      child: SizedBox(
-        width: 260,
-        height: 260,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              width: 64,
-              height: 64,
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                "cancel",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-            ).onClick(onDismiss),
-            Container(
-              width: 64,
-              height: 64,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                "confirm",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-            ).onClick(onConfirm),
           ],
         ),
       ),

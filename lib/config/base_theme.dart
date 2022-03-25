@@ -2,36 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class BaseTheme {
-  static final ThemeData light = ThemeData.light()
-      .copyWith(
-          primaryColor: Color(0xff000000),
-          toggleableActiveColor: Colors.deepPurple,
-          appBarTheme: AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.green,
-            statusBarIconBrightness: Brightness.light,
-            statusBarBrightness: Brightness.light,
-          )))
-      .add(
-        theme: MyTheme(
-          bgColor: Colors.white,
-          widgetColor: Colors.blue,
-          textColor: Colors.white,
-        ),
-      );
+  static final ThemeData light = ThemeData(
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: Colors.white,
+    toggleableActiveColor: Colors.deepPurple,
+  ).add(theme: MyTheme.light());
 
-  static final ThemeData dark = ThemeData.dark()
-      .copyWith(
-        primaryColor: Color(0xffffffff),
-        toggleableActiveColor: Colors.deepOrange,
-      )
-      .add(
-        theme: MyTheme(
-          bgColor: Colors.grey,
-          widgetColor: Colors.red,
-          textColor: Colors.white,
-        ),
-      );
+  static final ThemeData dark = ThemeData(
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: const Color(0xff2b2b2b),
+    toggleableActiveColor: Colors.deepOrange,
+  ).add(theme: MyTheme.dark());
 }
 
 extension ThemeExtension on ThemeData {
@@ -42,23 +23,43 @@ extension ThemeExtension on ThemeData {
     return this;
   }
 
-  MyTheme get() {
+  MyTheme get to {
     return _map[brightness.name] ?? MyTheme.empty();
   }
 }
 
 class MyTheme {
-  Color? bgColor;
-  Color? widgetColor;
   Color? textColor;
+  Color? widgetColor;
+  SystemUiOverlayStyle? statusStyle;
+  Color? dialogColor;
 
-  MyTheme({this.bgColor, this.widgetColor, this.textColor});
+  MyTheme({
+    this.textColor,
+    this.widgetColor,
+    this.statusStyle,
+    this.dialogColor,
+  });
 
   factory MyTheme.empty() {
+    return MyTheme();
+  }
+
+  factory MyTheme.light() {
     return MyTheme(
-      bgColor: Colors.white,
+      textColor: Colors.black,
       widgetColor: Colors.green,
-      textColor: Colors.yellow,
+      statusStyle: SystemUiOverlayStyle.dark,
+      dialogColor: const Color(0xCCF2F2F2),
+    );
+  }
+
+  factory MyTheme.dark() {
+    return MyTheme(
+      textColor: Colors.white,
+      widgetColor: Colors.blue,
+      statusStyle: SystemUiOverlayStyle.light,
+      dialogColor: const Color(0xBF1E1E1E),
     );
   }
 }

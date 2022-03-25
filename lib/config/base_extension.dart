@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:qinghe_ios/config/base_theme.dart';
 
 extension FunMap on Map {
   bool isNullOrEmpty() {
@@ -74,13 +76,14 @@ extension WidgetClick on Widget {
     double bottom = 0.0,
   }) {
     return Container(
-        margin: EdgeInsets.only(
-          top: top,
-          left: left,
-          right: right,
-          bottom: bottom,
-        ),
-        child: this,);
+      margin: EdgeInsets.only(
+        top: top,
+        left: left,
+        right: right,
+        bottom: bottom,
+      ),
+      child: this,
+    );
   }
 
   Positioned positionOn({
@@ -100,6 +103,13 @@ extension WidgetClick on Widget {
       bottom: bottom,
       width: width,
       height: height,
+      child: this,
+    );
+  }
+
+  Widget systemUI({required BuildContext context}) {
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: Theme.of(context).to.statusStyle!,
       child: this,
     );
   }

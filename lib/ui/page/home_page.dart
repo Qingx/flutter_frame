@@ -10,7 +10,7 @@ import 'package:qinghe_ios/controller/count_controller.dart';
 import 'package:qinghe_ios/data/config/base_route.dart';
 import 'package:qinghe_ios/theme/theme_bloc.dart';
 import 'package:qinghe_ios/theme/theme_event.dart';
-import 'package:qinghe_ios/ui/dialog/test_dialog.dart';
+import 'package:qinghe_ios/ui/dialog/alert_dialog.dart';
 import 'package:qinghe_ios/config/base_theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     _countStream = Stream.periodic(const Duration(milliseconds: 1000), (i) => i)
-        .take(60)
+        .take(120)
         .listen((event) {
       CountController.to.setCount();
 
@@ -143,35 +143,31 @@ class _HomePageState extends State<HomePage> {
 
   void testDialog() {
     Get.dialog(
-      alertDialog(),
+      alertDialog(
+        onDismiss: () {
+          Get.back();
+        },
+        onConfirm: () {
+          BaseTool.toast("onConfirm");
+        },
+      ),
       barrierDismissible: true,
     );
-    // Get.dialog(
-    //   testGetDialog(
-    //     onDismiss: () {
-    //       Get.back();
-    //     },
-    //     onConfirm: () {},
-    //   ),
-    //   barrierDismissible: true,
-    // );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.red,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          BaseWidget.statusBar(context: context, color: Colors.red),
+          BaseWidget.statusBar(context: context),
           BaseWidget.topBar(
+            context: context,
             name: "Home",
             hasBack: false,
-            bgColor: Colors.red,
-            titleColor: Colors.white,
           ),
           Container(
             height: 48,
@@ -185,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   "主题模式跟随系统",
                   style: TextStyle(
-                    color: Theme.of(context).get().widgetColor,
+                    color: Theme.of(context).to.widgetColor,
                     fontSize: 14,
                     decoration: TextDecoration.none,
                   ),
@@ -214,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     "开启暗黑模式",
                     style: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).to.textColor,
                       fontSize: 14,
                       decoration: TextDecoration.none,
                     ),
@@ -229,17 +225,17 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             alignment: Alignment.center,
-            width: 80,
+            width: 120,
             height: 80,
             margin: const EdgeInsets.only(top: 80),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color: Theme.of(context).get().widgetColor,
+              color: Theme.of(context).to.widgetColor,
             ),
-            child: Text(
+            child: const Text(
               "dialog",
               style: TextStyle(
-                color: Theme.of(context).get().textColor,
+                color: Colors.white,
                 fontSize: 14,
                 decoration: TextDecoration.none,
               ),
@@ -248,37 +244,55 @@ class _HomePageState extends State<HomePage> {
           Text(
             CountController.to.value.string,
             style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 16,
+              color: Theme.of(context).to.widgetColor,
+              fontSize: 24,
               decoration: TextDecoration.none,
             ),
-          ).marginOn(top: 16),
+          ).marginOn(top: 32),
           const Expanded(child: SizedBox()),
-          Container(
-            padding: const EdgeInsets.only(
-              top: 8,
-              bottom: 8,
-              left: 16,
-              right: 16,
-            ),
-            margin: const EdgeInsets.only(bottom: 80),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(4)),
-              color: Theme.of(context).get().widgetColor,
-            ),
-            child: Text(
-              "Next",
-              style: TextStyle(
-                color: Theme.of(context).get().textColor,
-                fontSize: 14,
-                decoration: TextDecoration.none,
-              ),
-            ),
-          ).onClick(() {
-            Get.toNamed(BaseRoute.Mine);
-          }),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                margin: const EdgeInsets.only(bottom: 80),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  color: Theme.of(context).toggleableActiveColor,
+                ),
+                child: const Text(
+                  "Reset",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ).onClick(resetCount),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                margin: const EdgeInsets.only(bottom: 80, left: 24),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  color: Theme.of(context).toggleableActiveColor,
+                ),
+                child: const Text(
+                  "Next Page",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+              ).onClick(() {
+                Get.toNamed(BaseRoute.Mine);
+              }),
+            ],
+          )
         ],
       ),
-    );
+    ).systemUI(context: context);
   }
 }

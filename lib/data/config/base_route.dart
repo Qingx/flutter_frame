@@ -10,6 +10,6 @@ abstract class BaseRoute{
 abstract class BasePage {
   static final List<GetPage> pages = [
     GetPage(name: BaseRoute.Initial, page: () => HomePage()),
-    GetPage(name: BaseRoute.Mine, page: () => MinePage(),transition: Transition.rightToLeftWithFade),
+    GetPage(name: BaseRoute.Mine, page: () => MinePage(),transition: Transition.rightToLeft),
   ];
 }

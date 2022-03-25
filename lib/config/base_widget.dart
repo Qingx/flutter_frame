@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:qinghe_ios/config/base_theme.dart';
 import 'package:qinghe_ios/r.dart';
 import 'package:qinghe_ios/config/base_extension.dart';
 
@@ -17,16 +18,14 @@ abstract class BaseWidget {
   }
 
   static Widget topBar({
+    required BuildContext context,
     String? name = "Page Name",
     bool? hasBack = true,
     bool? hasTitle = true,
-    Color? bgColor = Colors.white,
-    Color? titleColor = Colors.white,
     Function? onBack = emptyFunction,
   }) {
     return Container(
       height: 40,
-      color: bgColor,
       padding: const EdgeInsets.only(left: 6, right: 6),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,12 +40,13 @@ abstract class BaseWidget {
             child: Container(
               width: 40,
               height: 40,
-              padding: const EdgeInsets.all(10),
+              alignment: Alignment.center,
               child: SvgPicture.asset(
                 R.assetsImgTopBarBack,
-                width: 20,
-                height: 20,
+                width: 22,
+                height: 22,
                 fit: BoxFit.contain,
+                color: Theme.of(context).to.textColor,
               ),
             ).onClick(onBack!),
           ),
@@ -55,8 +55,9 @@ abstract class BaseWidget {
             child: Text(
               name!,
               style: TextStyle(
-                color: titleColor,
-                fontSize: 17,
+                color: Theme.of(context).to.textColor,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
                 decoration: TextDecoration.none,
               ),
             ),
@@ -69,4 +70,17 @@ abstract class BaseWidget {
       ),
     );
   }
+
+  static Widget testItemWidget(int index) {
+    return Container(
+      height: 80,
+      color: Colors.primaries[index % Colors.primaries.length],
+      alignment: Alignment.center,
+      child: Text(
+        '$index',
+        style: const TextStyle(color: Colors.white, fontSize: 20),
+      ),
+    );
+  }
+
 }
