@@ -71,16 +71,15 @@ abstract class BaseWidget {
     );
   }
 
-  static Widget testItemWidget(int index) {
+  static Widget testItemWidget(int index, {String? content}) {
     return Container(
       height: 80,
       color: Colors.primaries[index % Colors.primaries.length],
       alignment: Alignment.center,
       child: Text(
-        '$index',
+        content ?? "$index",
         style: const TextStyle(color: Colors.white, fontSize: 20),
       ),
     );
   }
-
 }

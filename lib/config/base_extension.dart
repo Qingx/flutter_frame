@@ -2,7 +2,10 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:qinghe_ios/config/base_theme.dart';
+import 'package:qinghe_ios/config/base_tool.dart';
 
 extension FunMap on Map {
   bool isNullOrEmpty() {
@@ -55,6 +58,8 @@ extension FunString on String {
 
     return values;
   }
+
+  void get toast => BaseTool.toast(this);
 }
 
 extension WidgetClick on Widget {
@@ -110,6 +115,17 @@ extension WidgetClick on Widget {
   Widget systemUI({required BuildContext context}) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: Theme.of(context).to.statusStyle!,
+      child: this,
+    );
+  }
+
+  Widget get removePadding {
+    return MediaQuery.removePadding(
+      context: Get.context!,
+      removeTop: true,
+      removeBottom: true,
+      removeRight: true,
+      removeLeft: true,
       child: this,
     );
   }
