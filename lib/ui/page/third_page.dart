@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/base_extension.dart';
 import 'package:qinghe_ios/config/base_widget.dart';
+import 'package:qinghe_ios/controller/user_controller.dart';
 import 'package:qinghe_ios/data/config/base_route.dart';
+import 'package:qinghe_ios/test/form_factory.dart';
+import 'package:qinghe_ios/config/base_extension.dart';
 
-class MinePage extends StatefulWidget {
-  const MinePage({Key? key}) : super(key: key);
+class ThirdPage extends StatefulWidget {
+  const ThirdPage({Key? key}) : super(key: key);
 
   @override
-  State<MinePage> createState() => _MinePageState();
+  State<ThirdPage> createState() => _ThirdPageState();
 }
 
-class _MinePageState extends State<MinePage> {
+class _ThirdPageState extends State<ThirdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +25,10 @@ class _MinePageState extends State<MinePage> {
           BaseWidget.statusBar(context: context),
           BaseWidget.topBar(
             context: context,
-            name: "Mine",
+            name: "Third",
             onBack: () => Get.back(),
           ),
-          const Expanded(child: _BodyWidget()),
+          Expanded(child: _BodyWidget()),
         ],
       ),
     );
@@ -41,54 +43,53 @@ class _BodyWidget extends StatefulWidget {
 }
 
 class _BodyWidgetState extends State<_BodyWidget> {
-  var widgetList;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var formList;
+
+  void doSubmit() {
+    var form = _formKey.currentState;
+    if(form!.validate()){
+     form.save();
+    }
+  }
 
   @override
   void initState() {
     super.initState();
 
-    widgetList = List.generate(50, (index) => BaseWidget.testItemWidget(index));
-
-    // Stream.periodic(const Duration(seconds: 1), (i) => i).take(5).listen((event) {
-    //   widgetList.insert(1, testWidget(event));
-    //   setState(() {});
-    // });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    formList = FormFactory.flatMap(BaseRoute.Third);
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.topCenter,
       children: [
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          itemCount: widgetList.length,
-          itemBuilder: (context, index) {
-            return widgetList[index];
-          },
-        ).removePadding,
+        Form(
+          key: _formKey,
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: formList.length,
+            itemBuilder: (context, index) {
+              return formList[index];
+            },
+          ).removePadding,
+        ),
         Container(
           height: 48,
-          width: MediaQuery.of(context).size.width / 2,
+          alignment: Alignment.center,
           decoration: const BoxDecoration(
-            color: Colors.red,
+            color: Colors.blue,
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          alignment: Alignment.center,
-          child: const Text(
-            "Next Page",
-            style: TextStyle(
+          child: Obx(()=>Text(
+            UserController.to.phone.value,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
+              decoration: TextDecoration.none,
             ),
           ),
-        ).onClick(() => Get.toNamed(BaseRoute.Third)).positionOn(bottom: 40),
+          )).onClick(doSubmit).positionOn(bottom: 40, left: 48, right: 48)
       ],
     );
   }

@@ -1,24 +1,30 @@
 import 'package:get/get.dart';
 
 class CountController extends GetxController {
-  static const String tag = "countController";
+  static const String _tag = "countController";
 
   CountController();
 
-  static CountController get to => Get.find<CountController>(tag: tag);
+  static void get put => Get.lazyPut<CountController>(
+        () => CountController(),
+        tag: _tag,
+        fenix: true,
+      );
 
-  RxInt value = 0.obs;
+  static CountController get to => Get.find<CountController>(tag: _tag);
+
+  RxInt number = 0.obs;
 
   setCount() {
-    value.value += 1;
-    value.firstRebuild = true;
+    number.value += 1;
+    number.firstRebuild = true;
 
     update();
   }
 
   reCount() {
-    value.value = 0;
-    value.firstRebuild = true;
+    number.value = 0;
+    number.firstRebuild = true;
 
     update();
   }

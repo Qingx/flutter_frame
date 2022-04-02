@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
         .listen((event) {
       CountController.to.setCount();
 
-      CountController.to.value.value.toString().printf();
+      CountController.to.number.value.toString().printf;
       setState(() {});
     });
   }
@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ).onClick(testDialog),
           Text(
-            CountController.to.value.string,
+            CountController.to.number.string,
             style: TextStyle(
               color: Theme.of(context).to.widgetColor,
               fontSize: 24,
@@ -287,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ).onClick(() {
-                Get.toNamed(BaseRoute.Mine);
+                Get.toNamed(BaseRoute.Third);
               }),
             ],
           )

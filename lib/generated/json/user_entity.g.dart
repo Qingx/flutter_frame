@@ -15,6 +15,10 @@ UserEntity $UserEntityFromJson(Map<String, dynamic> json) {
 	if (age != null) {
 		userEntity.age = age;
 	}
+	final String? phone = jsonConvert.convert<String>(json['phone']);
+	if (phone != null) {
+		userEntity.phone = phone;
+	}
 	return userEntity;
 }
 
@@ -23,5 +27,6 @@ Map<String, dynamic> $UserEntityToJson(UserEntity entity) {
 	data['id'] = entity.id;
 	data['name'] = entity.name;
 	data['age'] = entity.age;
+	data['phone'] = entity.phone;
 	return data;
 }

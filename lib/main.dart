@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:qinghe_ios/config/data_config.dart';
 import 'package:qinghe_ios/controller/count_controller.dart';
+import 'package:qinghe_ios/controller/user_controller.dart';
 import 'package:qinghe_ios/data/config/base_route.dart';
 import 'package:qinghe_ios/theme/theme_bloc.dart';
 import 'package:qinghe_ios/theme/theme_event.dart';
@@ -38,8 +39,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut<CountController>(() => CountController(),
-        tag: CountController.tag);
+   CountController.put;
+   UserController.put;
 
     ///GetX
     return GetMaterialApp(

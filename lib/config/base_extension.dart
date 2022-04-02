@@ -30,9 +30,9 @@ extension StringList on List<String> {
 }
 
 extension FunString on String {
-  void printf() {
-    print("${DateTime.now()} $this");
-  }
+  void get printf => print("${DateTime.now()} $this");
+
+  void get toast => BaseTool.toast(this);
 
   bool isNullOrEmpty() {
     return this == null || this.isEmpty;
@@ -58,8 +58,6 @@ extension FunString on String {
 
     return values;
   }
-
-  void get toast => BaseTool.toast(this);
 }
 
 extension WidgetClick on Widget {
@@ -136,13 +134,9 @@ extension DoubleMoney on int {
     String money = "0.00";
     var num = this / 100.0;
     if ((num.toString().length - num.toString().lastIndexOf(".") - 1) < 2) {
-      money = num.toStringAsFixed(2)
-          .substring(0, num.toString().lastIndexOf(".") + 3)
-          .toString();
+      money = num.toStringAsFixed(2).substring(0, num.toString().lastIndexOf(".") + 3).toString();
     } else {
-      money = num.toString()
-          .substring(0, num.toString().lastIndexOf(".") + 3)
-          .toString();
+      money = num.toString().substring(0, num.toString().lastIndexOf(".") + 3).toString();
     }
     return money;
   }

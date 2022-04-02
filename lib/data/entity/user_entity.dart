@@ -8,7 +8,8 @@ class UserEntity {
 	String? id;
 	String? name;
 	String? age;
-  
+	String? phone="1";
+
   UserEntity();
 
   factory UserEntity.fromJson(Map<String, dynamic> json) => $UserEntityFromJson(json);
