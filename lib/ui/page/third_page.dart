@@ -18,19 +18,8 @@ class _ThirdPageState extends State<ThirdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          BaseWidget.statusBar(context: context),
-          BaseWidget.topBar(
-            context: context,
-            name: "Third",
-            onBack: () => Get.back(),
-          ),
-          Expanded(child: _BodyWidget()),
-        ],
-      ),
+      appBar: BaseWidget.appBar(title: "Third"),
+      body: const _BodyWidget(),
     );
   }
 }
@@ -48,8 +37,8 @@ class _BodyWidgetState extends State<_BodyWidget> {
 
   void doSubmit() {
     var form = _formKey.currentState;
-    if(form!.validate()){
-     form.save();
+    if (form!.validate()) {
+      form.save();
     }
   }
 
@@ -62,11 +51,14 @@ class _BodyWidgetState extends State<_BodyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Form(
           key: _formKey,
           child: ListView.builder(
+            shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             itemCount: formList.length,
             itemBuilder: (context, index) {
@@ -74,22 +66,49 @@ class _BodyWidgetState extends State<_BodyWidget> {
             },
           ).removePadding,
         ),
-        Container(
-          height: 48,
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          ),
-          child: Obx(()=>Text(
-            UserController.to.phone.value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              decoration: TextDecoration.none,
-            ),
-          ),
-          )).onClick(doSubmit).positionOn(bottom: 40, left: 48, right: 48)
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.only(bottom: 80),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                  color: Colors.blue,
+                ),
+                child: Obx(
+                  () => Text(
+                    UserController.to.phone.value,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                )).onClick(doSubmit),
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(left: 24, bottom: 80),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+                color: Theme.of(context).toggleableActiveColor,
+              ),
+              child: const Text(
+                "Next Page",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  decoration: TextDecoration.none,
+                ),
+              ),
+            ).onClick(() {
+              Get.toNamed(BaseRoute.Fourth);
+            }),
+          ],
+        ),
       ],
     );
   }

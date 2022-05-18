@@ -61,7 +61,7 @@ extension FunString on String {
 }
 
 extension WidgetClick on Widget {
-  InkWell onClick(Function doClick) {
+  InkWell onClick( Function doClick) {
     return InkWell(
       radius: 0,
       highlightColor: Colors.transparent,

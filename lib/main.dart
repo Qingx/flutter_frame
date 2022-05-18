@@ -2,18 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:qinghe_ios/config/base_theme.dart';
 import 'package:qinghe_ios/config/data_config.dart';
 import 'package:qinghe_ios/controller/count_controller.dart';
 import 'package:qinghe_ios/controller/user_controller.dart';
 import 'package:qinghe_ios/data/config/base_route.dart';
-import 'package:qinghe_ios/theme/theme_bloc.dart';
-import 'package:qinghe_ios/theme/theme_event.dart';
-import 'package:qinghe_ios/theme/theme_state.dart';
-import 'package:qinghe_ios/ui/page/home_page.dart';
-import 'package:qinghe_ios/config/base_theme.dart';
 
 void main() async {
   // ///GetStorage
@@ -39,8 +33,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   CountController.put;
-   UserController.put;
+    CountController.put;
+    UserController.put;
 
     ///GetX
     return GetMaterialApp(
@@ -54,32 +48,33 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: BaseRoute.Initial,
       getPages: BasePage.pages,
+      defaultTransition: Transition.rightToLeft,
     );
 
     ///Bloc
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => ThemeBloc()..add(const ThemeInitEvent()),
-        ),
-      ],
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          var mode = state == ThemeState.Light
-              ? ThemeMode.light
-              : state == ThemeState.Dark
-                  ? ThemeMode.dark
-                  : ThemeMode.system;
-          return MaterialApp(
-            themeMode: mode,
-            theme: BaseTheme.light,
-            darkTheme: BaseTheme.dark,
-            debugShowCheckedModeBanner: false,
-            initialRoute: BaseRoute.Initial,
-            home: const HomePage(),
-          );
-        },
-      ),
-    );
+    // return MultiBlocProvider(
+    //   providers: [
+    //     BlocProvider(
+    //       create: (context) => ThemeBloc()..add(const ThemeInitEvent()),
+    //     ),
+    //   ],
+    //   child: BlocBuilder<ThemeBloc, ThemeState>(
+    //     builder: (context, state) {
+    //       var mode = state == ThemeState.Light
+    //           ? ThemeMode.light
+    //           : state == ThemeState.Dark
+    //               ? ThemeMode.dark
+    //               : ThemeMode.system;
+    //       return MaterialApp(
+    //         themeMode: mode,
+    //         theme: BaseTheme.light,
+    //         darkTheme: BaseTheme.dark,
+    //         debugShowCheckedModeBanner: false,
+    //         initialRoute: BaseRoute.Initial,
+    //         home: const InitialPage(),
+    //       );
+    //     },
+    //   ),
+    // );
   }
 }

@@ -4,31 +4,20 @@ import 'package:qinghe_ios/config/base_extension.dart';
 import 'package:qinghe_ios/config/base_widget.dart';
 import 'package:qinghe_ios/data/config/base_route.dart';
 
-class MinePage extends StatefulWidget {
-  const MinePage({Key? key}) : super(key: key);
+class SecondPage extends StatefulWidget {
+  const SecondPage({Key? key}) : super(key: key);
 
   @override
-  State<MinePage> createState() => _MinePageState();
+  State<SecondPage> createState() => _SecondPageState();
 }
 
-class _MinePageState extends State<MinePage> {
+class _SecondPageState extends State<SecondPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          BaseWidget.statusBar(context: context),
-          BaseWidget.topBar(
-            context: context,
-            name: "Mine",
-            onBack: () => Get.back(),
-          ),
-          const Expanded(child: _BodyWidget()),
-        ],
-      ),
+      appBar: BaseWidget.appBar(title: "Second"),
+      body: const _BodyWidget(),
     );
   }
 }

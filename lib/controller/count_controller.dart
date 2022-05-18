@@ -1,17 +1,17 @@
 import 'package:get/get.dart';
 
 class CountController extends GetxController {
+  CountController._();
+
   static const String _tag = "countController";
 
-  CountController();
-
   static void get put => Get.lazyPut<CountController>(
-        () => CountController(),
+        () => CountController._(),
         tag: _tag,
         fenix: true,
       );
 
-  static CountController get to => Get.find<CountController>(tag: _tag);
+  static CountController get find => Get.find<CountController>(tag: _tag);
 
   RxInt number = 0.obs;
 

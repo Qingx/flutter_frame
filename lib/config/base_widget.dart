@@ -1,12 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:qinghe_ios/config/base_theme.dart';
 import 'package:qinghe_ios/r.dart';
 import 'package:qinghe_ios/config/base_extension.dart';
 
 abstract class BaseWidget {
   static dynamic emptyFunction() {}
+
+  static AppBar appBar({
+    Color? iconColor = Colors.black,
+    Color? backgroundColor = Colors.white,
+    Color? shadowColor = Colors.transparent,
+    Color? textColor,
+    bool? centerTitle = true,
+    String? title = "",
+  }) {
+    return AppBar(
+      iconTheme: IconThemeData(color: iconColor),
+      backgroundColor: backgroundColor,
+      shadowColor: shadowColor,
+      title: Text(
+        title!,
+        style: TextStyle(color: textColor ?? Get.theme.to.textColor),
+      ),
+      centerTitle: centerTitle,
+    );
+  }
 
   static Widget statusBar({
     required BuildContext context,

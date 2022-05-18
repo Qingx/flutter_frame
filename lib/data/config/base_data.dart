@@ -22,30 +22,33 @@ class BaseData<T> extends DataSource {
     msg = json['msg'].toString();
     timestamps = json['timestamps'];
     status = int.parse(json['status']);
-
-    final type = T.toString();
-
-    if (type == (int).toString()) {
-      data = json['data'];
-    } else if (type == (bool).toString()) {
-      data = json['data'];
-    } else if (type == (double).toString()) {
-      data = json['data'];
-    } else if (type == (String).toString()) {
-      data = json['data'];
-    } else {
-      var data = json['data'];
-
-      if (data == null) {
-        if (T.toString().startsWith("List")) {
-          this.data = JsonConvert.fromJsonAsT<T>([]);
-        }
-        return;
-      }
-
-      this.data = JsonConvert.fromJsonAsT<T>(data);
-    }
+    data = JsonConvert.fromJsonAsT<T>(json['data']);
   }
+
+  //
+  // final type = T.toString();
+  //
+  // if (type == (int).toString()) {
+  //   data = json['data'];
+  // } else if (type == (bool).toString()) {
+  //   data = json['data'];
+  // } else if (type == (double).toString()) {
+  //   data = json['data'];
+  // } else if (type == (String).toString()) {
+  //   data = json['data'];
+  // } else {
+  //   var data = json['data'];
+  //
+  //   if (data == null) {
+  //     if (T.toString().startsWith("List")) {
+  //       this.data = JsonConvert.fromJsonAsT<T>([]);
+  //     }
+  //     return;
+  //   }
+  //
+  //   this.data = JsonConvert.fromJsonAsT<T>(data);
+  // }
+  // }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> map = <String, dynamic>{};

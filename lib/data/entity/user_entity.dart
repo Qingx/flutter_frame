@@ -4,13 +4,17 @@ import 'package:qinghe_ios/generated/json/user_entity.g.dart';
 
 @JsonSerializable()
 class UserEntity {
+  String? id;
+  String? name;
+  String? age;
+  String? phone;
 
-	String? id;
-	String? name;
-	String? age;
-	String? phone="1";
-
-  UserEntity();
+  UserEntity({
+    this.id,
+    this.name,
+    this.age,
+    this.phone,
+  });
 
   factory UserEntity.fromJson(Map<String, dynamic> json) => $UserEntityFromJson(json);
 

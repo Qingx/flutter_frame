@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -12,16 +13,18 @@ import 'package:qinghe_ios/theme/theme_bloc.dart';
 import 'package:qinghe_ios/theme/theme_event.dart';
 import 'package:qinghe_ios/ui/dialog/alert_dialog.dart';
 import 'package:qinghe_ios/config/base_theme.dart';
+import 'package:qinghe_ios/ui/page/second_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class InitialPage extends StatefulWidget {
+  const InitialPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<InitialPage> createState() => _InitialPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
   StreamSubscription<int>? _countStream;
+  var isVisible = false;
 
   @override
   void initState() {
@@ -30,6 +33,8 @@ class _HomePageState extends State<HomePage> {
     onSystemThemeChangedListener();
     // doSystemThemeChangedListener();
     updateCount();
+
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
@@ -37,6 +42,31 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
 
     _countStream?.cancel();
+
+    WidgetsBinding.instance?.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("-didChangeAppLifecycleState-" + state.toString());
+    switch (state) {
+      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+        doChangeVisible(true);
+        break;
+      case AppLifecycleState.resumed: //从后台切换前台，界面可见
+        doChangeVisible(false);
+        break;
+      case AppLifecycleState.paused: // 界面不可见，后台
+        doChangeVisible(true);
+        break;
+      case AppLifecycleState.detached: // APP结束时调用
+        break;
+    }
+  }
+
+  void doChangeVisible(bool value) {
+    // isVisible = value;
+    // setState(() {});
   }
 
   ///Bloc
@@ -57,8 +87,7 @@ class _HomePageState extends State<HomePage> {
     var window = WidgetsBinding.instance!.window;
     var state = window.platformBrightness;
 
-    BlocProvider.of<ThemeBloc>(context)
-        .add(ThemeFollowSystemChangeEvent(state));
+    BlocProvider.of<ThemeBloc>(context).add(ThemeFollowSystemChangeEvent(state));
     setState(() {});
   }
 
@@ -106,11 +135,9 @@ class _HomePageState extends State<HomePage> {
       var lastTheme = DataConfig.getIns().themeType;
       if (0 != lastTheme) {
         DataConfig.getIns().themeType = 0;
-        // Get.changeTheme(TestTheme.light);
         Get.changeThemeMode(ThemeMode.light);
       } else {
         DataConfig.getIns().themeType = 1;
-        // Get.changeTheme(TestTheme.dark);
         Get.changeThemeMode(ThemeMode.dark);
       }
 
@@ -123,12 +150,11 @@ class _HomePageState extends State<HomePage> {
       _countStream?.cancel();
     }
 
-    _countStream = Stream.periodic(const Duration(milliseconds: 1000), (i) => i)
-        .take(120)
-        .listen((event) {
-      CountController.to.setCount();
+    _countStream =
+        Stream.periodic(const Duration(milliseconds: 1000), (i) => i).take(120).listen((event) {
+      CountController.find.setCount();
 
-      CountController.to.number.value.toString().printf;
+      CountController.find.number.value.toString().printf;
       setState(() {});
     });
   }
@@ -136,9 +162,15 @@ class _HomePageState extends State<HomePage> {
   void resetCount() {
     _countStream?.cancel();
 
-    CountController.to.reCount();
+    CountController.find.reCount();
     updateCount();
     setState(() {});
+  }
+
+  void testClick() {
+    Get.snackbar("hi", "message");
+    // Get.defaultDialog(title: "hi message");
+    // testDialog();
   }
 
   void testDialog() {
@@ -159,16 +191,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: BaseWidget.appBar(title: "Initial"),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          BaseWidget.statusBar(context: context),
-          BaseWidget.topBar(
-            context: context,
-            name: "Home",
-            hasBack: false,
-          ),
           Container(
             height: 48,
             width: double.infinity,
@@ -232,7 +259,7 @@ class _HomePageState extends State<HomePage> {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               color: Theme.of(context).to.widgetColor,
             ),
-            child: const Text(
+            child:  const Text(
               "dialog",
               style: TextStyle(
                 color: Colors.white,
@@ -240,9 +267,9 @@ class _HomePageState extends State<HomePage> {
                 decoration: TextDecoration.none,
               ),
             ),
-          ).onClick(testDialog),
+          ).onClick(testClick),
           Text(
-            CountController.to.number.string,
+            CountController.find.number.string,
             style: TextStyle(
               color: Theme.of(context).to.widgetColor,
               fontSize: 24,
@@ -254,8 +281,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 margin: const EdgeInsets.only(bottom: 80),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -271,8 +297,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ).onClick(resetCount),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 margin: const EdgeInsets.only(bottom: 80, left: 24),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -287,12 +312,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ).onClick(() {
-                Get.toNamed(BaseRoute.Third);
+                Get.toNamed(BaseRoute.Second);
+                // Get.to(SecondPage());
               }),
             ],
-          )
+          ),
+          Expanded(
+            child: Visibility(
+              visible: isVisible,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                child: Container(
+                  color: Colors.white.withOpacity(0.1),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
-    ).systemUI(context: context);
+    );
   }
 }
