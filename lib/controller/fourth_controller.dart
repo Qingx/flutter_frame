@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qinghe_ios/data/entity/user_entity.dart';
+import 'package:rxdart/rxdart.dart';
 
 class FourthController extends GetxController with StateMixin<UserEntity> {
   FourthController._();
@@ -16,18 +18,25 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
 
   RxInt number = 0.obs;
 
-  void showSnackBar() {
+  void doSomething() {
     Get.snackbar("hi", "message");
+
+    // Get.defaultDialog(title: "hi message");
+
+    // Get.bottomSheet(
+    //   SizedBox(width: Get.width, height: Get.width / 2),
+    //   backgroundColor: Colors.white,
+    // );
+
+    // Get.dialog(
+    //   Center(child: Container(width: Get.width / 2, height: Get.width / 2, color: Colors.white)),
+    // );
+
   }
 
-  void updateCount() {
+  void _updateCount() {
     number.value += 1;
-    number.firstRebuild = true;
     update();
-
-    // if(number.value==10){
-    //   change(UserEntity(),status: RxStatus.error("waring error"));
-    // }
   }
 
   @override
@@ -35,8 +44,17 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
     super.onInit();
     print("wangxiang:onInit()");
 
-    Future.delayed(const Duration(milliseconds: 1000)).then(
-      (value) => change(UserEntity(phone: "111111111"), status: RxStatus.success()),
+    Stream.fromFuture(Future.delayed(const Duration(milliseconds: 1000)))
+        .flatMap((event) => Stream.error("sorry on error"))
+        .onErrorReturn(UserEntity(phone: "11111111"))
+        .listen(
+      (event) {
+        change(UserEntity(phone: "22222222"), status: RxStatus.success());
+      },
+      onError: (error, stack) {
+        change(UserEntity(), status: RxStatus.error(error.toString()));
+      },
+      onDone: () {},
     );
   }
 
@@ -46,7 +64,7 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
     print("wangxiang:onReady()");
 
     Stream.periodic(const Duration(milliseconds: 1000)).take(60).listen((event) {
-      updateCount();
+      _updateCount();
     });
   }
 

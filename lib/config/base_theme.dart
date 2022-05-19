@@ -33,6 +33,7 @@ class MyTheme {
   Color? widgetColor;
   SystemUiOverlayStyle? statusStyle;
   Color? dialogColor;
+  Color? appBarBackgroundColor;
 
   MyTheme({
     this.textColor,

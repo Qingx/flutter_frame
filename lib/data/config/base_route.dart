@@ -5,18 +5,18 @@ import 'package:qinghe_ios/ui/page/fourth_page.dart';
 import 'package:qinghe_ios/ui/page/second_page.dart';
 import 'package:qinghe_ios/ui/page/third_page.dart';
 
-abstract class BaseRoute {
+class BaseRoute {
   static const String Initial = "/";
   static const String Second = "/Second";
   static const String Third = "/Third";
   static const String Fourth = "/Fourth";
 }
 
-abstract class BasePage {
+class BasePage {
   static final List<GetPage> pages = [
-    GetPage(name: BaseRoute.Initial, page: () => InitialPage()),
-    GetPage(name: BaseRoute.Second, page: () => SecondPage()),
-    GetPage(name: BaseRoute.Third, page: () => ThirdPage()),
+    GetPage(name: BaseRoute.Initial, page: () => const InitialPage()),
+    GetPage(name: BaseRoute.Second, page: () => const SecondPage()),
+    GetPage(name: BaseRoute.Third, page: () => const ThirdPage()),
     GetPage(
       name: BaseRoute.Fourth,
       page: () => const FourthPage(),

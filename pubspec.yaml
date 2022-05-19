@@ -108,4 +108,7 @@ flutter:
   # assets-generator-begin
   # assets/img/*
     - assets/img/launcher.png
+    - assets/img/normalEmpty.svg
     - assets/img/topBarBack.svg
+    - assets/img/normalSuccess.svg
+    - assets/img/normalError.svg

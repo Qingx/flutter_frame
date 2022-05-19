@@ -10,85 +10,22 @@ abstract class BaseWidget {
   static dynamic emptyFunction() {}
 
   static AppBar appBar({
-    Color? iconColor = Colors.black,
-    Color? backgroundColor = Colors.white,
+    Color? iconColor,
+    Color? backgroundColor,
     Color? shadowColor = Colors.transparent,
     Color? textColor,
     bool? centerTitle = true,
     String? title = "",
   }) {
     return AppBar(
-      iconTheme: IconThemeData(color: iconColor),
-      backgroundColor: backgroundColor,
+      iconTheme: IconThemeData(color: iconColor ?? Get.theme.to.textColor),
+      backgroundColor: backgroundColor ?? Get.theme.scaffoldBackgroundColor,
       shadowColor: shadowColor,
       title: Text(
         title!,
         style: TextStyle(color: textColor ?? Get.theme.to.textColor),
       ),
       centerTitle: centerTitle,
-    );
-  }
-
-  static Widget statusBar({
-    required BuildContext context,
-    Color? color = Colors.white,
-  }) {
-    return Container(
-      height: MediaQuery.of(context).padding.top,
-    );
-  }
-
-  static Widget topBar({
-    required BuildContext context,
-    String? name = "Page Name",
-    bool? hasBack = true,
-    bool? hasTitle = true,
-    Function? onBack = emptyFunction,
-  }) {
-    return Container(
-      height: 40,
-      padding: const EdgeInsets.only(left: 6, right: 6),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Visibility(
-            visible: hasBack!,
-            replacement: const SizedBox(
-              width: 40,
-              height: 40,
-            ),
-            child: Container(
-              width: 40,
-              height: 40,
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                R.assetsImgTopBarBack,
-                width: 22,
-                height: 22,
-                fit: BoxFit.contain,
-                color: Theme.of(context).to.textColor,
-              ),
-            ).onClick(onBack!),
-          ),
-          Visibility(
-            visible: hasTitle!,
-            child: Text(
-              name!,
-              style: TextStyle(
-                color: Theme.of(context).to.textColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                decoration: TextDecoration.none,
-              ),
-            ),
-            replacement: const SizedBox(),
-          ),
-          const SizedBox(
-            width: 40,
-          ),
-        ],
-      ),
     );
   }
 
@@ -100,6 +37,36 @@ abstract class BaseWidget {
       child: Text(
         content ?? "$index",
         style: const TextStyle(color: Colors.white, fontSize: 20),
+      ),
+    );
+  }
+
+  static Widget normalErrorWidget(String error) {
+    return SizedBox(
+      width: Get.width,
+      height: Get.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(R.assetsImgNormalError, width: Get.width / 2, fit: BoxFit.contain),
+          Text(error, style: const TextStyle(color: Colors.grey, fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
+  static Widget normalEmptyWidget(String notice) {
+    return SizedBox(
+      width: Get.width,
+      height: Get.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(R.assetsImgNormalEmpty, width: Get.width / 2, fit: BoxFit.contain),
+          Text(notice, style: const TextStyle(color: Colors.grey, fontSize: 16)),
+        ],
       ),
     );
   }

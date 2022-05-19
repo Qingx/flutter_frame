@@ -168,9 +168,9 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
   }
 
   void testClick() {
-    Get.snackbar("hi", "message");
+    // Get.snackbar("hi", "message");
     // Get.defaultDialog(title: "hi message");
-    // testDialog();
+    testDialog();
   }
 
   void testDialog() {
