@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:qinghe_ios/controller/fourth_controller.dart';
 import 'package:qinghe_ios/ui/page/Initial_page.dart';
+import 'package:qinghe_ios/ui/page/fifth_page.dart';
 import 'package:qinghe_ios/ui/page/fourth_page.dart';
 import 'package:qinghe_ios/ui/page/second_page.dart';
 import 'package:qinghe_ios/ui/page/third_page.dart';
@@ -10,6 +11,7 @@ class BaseRoute {
   static const String Second = "/Second";
   static const String Third = "/Third";
   static const String Fourth = "/Fourth";
+  static const String Fifth = "/Fifth";
 }
 
 class BasePage {
@@ -22,5 +24,7 @@ class BasePage {
       page: () => const FourthPage(),
       binding: BindingsBuilder(() => {FourthController.put}),
     ),
+    GetPage(name: BaseRoute.Fifth, page: () =>  FifthPage()),
+
   ];
 }

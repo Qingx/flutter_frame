@@ -13,6 +13,7 @@ import 'package:qinghe_ios/theme/theme_bloc.dart';
 import 'package:qinghe_ios/theme/theme_event.dart';
 import 'package:qinghe_ios/ui/dialog/alert_dialog.dart';
 import 'package:qinghe_ios/config/base_theme.dart';
+import 'package:qinghe_ios/ui/page/fifth_page.dart';
 import 'package:qinghe_ios/ui/page/second_page.dart';
 
 class InitialPage extends StatefulWidget {
@@ -154,7 +155,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
         Stream.periodic(const Duration(milliseconds: 1000), (i) => i).take(120).listen((event) {
       CountController.find.setCount();
 
-      CountController.find.number.value.toString().printf;
+      // CountController.find.number.value.toString().printf;
       setState(() {});
     });
   }
@@ -312,7 +313,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
                   ),
                 ),
               ).onClick(() {
-                Get.toNamed(BaseRoute.Second);
+                Get.toNamed(BaseRoute.Fifth);
                 // Get.to(SecondPage());
               }),
             ],

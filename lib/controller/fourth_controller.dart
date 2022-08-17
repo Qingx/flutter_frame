@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qinghe_ios/data/entity/user_entity.dart';
 import 'package:rxdart/rxdart.dart';
@@ -16,9 +15,11 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
 
   static FourthController get find => Get.find<FourthController>(tag: tag);
 
+  // RxBool mStatus =false.obs;
   RxInt number = 0.obs;
 
   void doSomething() {
+    // _doTest();
     Get.snackbar("hi", "message");
 
     // Get.defaultDialog(title: "hi message");
@@ -31,12 +32,25 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
     // Get.dialog(
     //   Center(child: Container(width: Get.width / 2, height: Get.width / 2, color: Colors.white)),
     // );
-
   }
 
   void _updateCount() {
     number.value += 1;
     update();
+  }
+
+  void _doTest() {
+    List<UserEntity> list = [
+      UserEntity(id: "1", name: "11"),
+      UserEntity(id: "1", name: "12"),
+      UserEntity(id: "2", name: "21"),
+      UserEntity(id: "3", name: "31"),
+      UserEntity(id: "3", name: "32"),
+      UserEntity(id: "4", name: "41"),
+    ];
+    var set=list.map((e) => e.id).toSet();
+    list.retainWhere((element) => set.remove(element.id));
+    print("wangxiang:$list");
   }
 
   @override
@@ -49,7 +63,7 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
         .onErrorReturn(UserEntity(phone: "11111111"))
         .listen(
       (event) {
-        change(UserEntity(phone: "22222222"), status: RxStatus.success());
+        change(event, status: RxStatus.success());
       },
       onError: (error, stack) {
         change(UserEntity(), status: RxStatus.error(error.toString()));

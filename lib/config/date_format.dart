@@ -7,6 +7,7 @@ class DateFormat {
   static const List<String> yyyymmdd = [yyyy, '/', mm, '/', dd, ' ', HH, ':', nn];
   static const List<String> nnss = [nn, ':', ss];
   static const List<String> hhnn = [HH, ':', nn];
+  static const List<String> yyyymmddhhnnsss = [yyyy, '/', mm, '/', dd, ' ', HH, ':', nn,':',ss,':',SSS];
 
   ///2020/12/12
   static String getYYYYMMDD(int time) {
