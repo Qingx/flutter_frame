@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:qinghe_ios/data/entity/user_entity.dart';
+import 'package:may/data/entity/user_entity.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FourthController extends GetxController with StateMixin<UserEntity> {

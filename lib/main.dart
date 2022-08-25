@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/base_theme.dart';
-import 'package:qinghe_ios/config/data_config.dart';
-import 'package:qinghe_ios/controller/count_controller.dart';
-import 'package:qinghe_ios/controller/user_controller.dart';
-import 'package:qinghe_ios/data/config/base_route.dart';
+import 'package:may/config/base_theme.dart';
+import 'package:may/config/data_config.dart';
+import 'package:may/controller/count_controller.dart';
+import 'package:may/controller/user_controller.dart';
+import 'package:may/data/config/base_route.dart';
 
 void main() async {
   // ///GetStorage
@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
       theme: BaseTheme.light,
       darkTheme: BaseTheme.dark,
       debugShowCheckedModeBanner: false,
-      initialRoute: BaseRoute.Initial,
       getPages: BasePage.pages,
       defaultTransition: Transition.rightToLeft,
     );

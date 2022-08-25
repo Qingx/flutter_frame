@@ -1,4 +1,4 @@
-import 'package:qinghe_ios/data/config/page_param.dart';
+import 'package:may/data/config/page_param.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class BasePageController<T> {

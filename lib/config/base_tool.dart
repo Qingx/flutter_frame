@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qinghe_ios/config/base_extension.dart';
+import 'package:may/config/base_extension.dart';
 
 class BaseTool {
   static bool eq(double num1, double num2) {

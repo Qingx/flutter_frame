@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:qinghe_ios/config/base_extension.dart';
-import 'package:qinghe_ios/generated/json/base/json_convert_content.dart';
+import 'package:may/config/base_extension.dart';
+import 'package:may/generated/json/base/json_convert_content.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BaseSP {

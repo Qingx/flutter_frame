@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ym.qinghe.flutter.qinghe_ios">
    <application
-        android:label="qinghe_ios"
+        android:label="may"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

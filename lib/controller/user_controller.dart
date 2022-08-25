@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/user_config.dart';
-import 'package:qinghe_ios/data/entity/user_entity.dart';
+import 'package:may/config/user_config.dart';
+import 'package:may/data/entity/user_entity.dart';
 
 class UserController extends GetxController {
   UserController._();

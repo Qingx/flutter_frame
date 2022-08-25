@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/base_theme.dart';
-import 'package:qinghe_ios/config/base_tool.dart';
+import 'package:may/config/base_theme.dart';
+import 'package:may/config/base_tool.dart';
 
 extension FunMap on Map {
   bool isNullOrEmpty() {

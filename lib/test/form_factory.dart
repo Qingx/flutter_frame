@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qinghe_ios/controller/user_controller.dart';
-import 'package:qinghe_ios/data/config/base_route.dart';
-import 'package:qinghe_ios/config/base_extension.dart';
+import 'package:may/controller/user_controller.dart';
+import 'package:may/data/config/base_route.dart';
+import 'package:may/config/base_extension.dart';
 
 class FormFactory {
   static final Map<String, List<Widget>> _formMap = {

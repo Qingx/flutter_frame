@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:qinghe_ios/config/user_config.dart';
-import 'package:qinghe_ios/data/config/base_data.dart';
-import 'package:qinghe_ios/data/config/base_page.dart';
-import 'package:qinghe_ios/data/config/http_config.dart';
-import 'package:qinghe_ios/data/config/page_data.dart';
-import 'package:qinghe_ios/data/config/page_param.dart';
+import 'package:may/config/user_config.dart';
+import 'package:may/data/config/base_data.dart';
+import 'package:may/data/config/base_page.dart';
+import 'package:may/data/config/http_config.dart';
+import 'package:may/data/config/page_data.dart';
+import 'package:may/data/config/page_param.dart';
 import 'package:rxdart/rxdart.dart';
 
 class BaseApi {

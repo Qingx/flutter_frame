@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/base_extension.dart';
-import 'package:qinghe_ios/config/base_theme.dart';
+import 'package:may/config/base_extension.dart';
+import 'package:may/config/base_theme.dart';
 
 Widget alertDialog({
   String? title = "",

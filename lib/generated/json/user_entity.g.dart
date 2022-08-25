@@ -1,5 +1,5 @@
-import 'package:qinghe_ios/generated/json/base/json_convert_content.dart';
-import 'package:qinghe_ios/data/entity/user_entity.dart';
+import 'package:may/generated/json/base/json_convert_content.dart';
+import 'package:may/data/entity/user_entity.dart';
 
 UserEntity $UserEntityFromJson(Map<String, dynamic> json) {
 	final UserEntity userEntity = UserEntity();

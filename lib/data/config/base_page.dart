@@ -1,5 +1,5 @@
-import 'package:qinghe_ios/data/config/base_data.dart';
-import 'package:qinghe_ios/data/config/page_data.dart';
+import 'package:may/data/config/base_data.dart';
+import 'package:may/data/config/page_data.dart';
 
 class BasePage<T> extends DataSource {
   int timestamps = 0;

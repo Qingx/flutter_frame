@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/base_theme.dart';
-import 'package:qinghe_ios/r.dart';
-import 'package:qinghe_ios/config/base_extension.dart';
+import 'package:may/config/base_theme.dart';
+import 'package:may/r.dart';
+import 'package:may/config/base_extension.dart';
 
 abstract class BaseWidget {
   static dynamic emptyFunction() {}

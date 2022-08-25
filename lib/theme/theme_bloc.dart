@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qinghe_ios/config/data_config.dart';
-import 'package:qinghe_ios/theme/theme_event.dart';
-import 'package:qinghe_ios/theme/theme_state.dart';
+import 'package:may/config/data_config.dart';
+import 'package:may/theme/theme_event.dart';
+import 'package:may/theme/theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc()

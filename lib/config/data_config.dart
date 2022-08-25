@@ -1,4 +1,4 @@
-import 'package:qinghe_ios/config/base_sp.dart';
+import 'package:may/config/base_sp.dart';
 
 /// 应用数据相关缓存
 class DataConfig extends BaseConfig {
@@ -15,7 +15,7 @@ class DataConfig extends BaseConfig {
       spInstance!.putBool(DataKeys.K_FIRST_USE, result);
 
   /// 检查是否为第一次使用APP
-  bool get firstUserApp =>
+  bool get isFirstUseApp =>
       spInstance!.getBool(DataKeys.K_FIRST_USE, defaultVal: true);
 
   ///主题模式 true:跟随系统 false:不跟随系统

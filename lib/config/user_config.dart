@@ -1,5 +1,5 @@
-import 'package:qinghe_ios/config/data_config.dart';
-import 'package:qinghe_ios/data/entity/user_entity.dart';
+import 'package:may/config/data_config.dart';
+import 'package:may/data/entity/user_entity.dart';
 
 /// 用户数据相关缓存
 class UserConfig extends BaseConfig {

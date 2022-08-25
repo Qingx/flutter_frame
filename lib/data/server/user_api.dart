@@ -1,4 +1,4 @@
-import 'package:qinghe_ios/data/config/base_api.dart';
+import 'package:may/data/config/base_api.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserApi extends BaseApi {

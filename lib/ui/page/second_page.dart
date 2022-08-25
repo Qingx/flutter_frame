@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/base_extension.dart';
-import 'package:qinghe_ios/config/base_widget.dart';
-import 'package:qinghe_ios/data/config/base_route.dart';
+import 'package:may/config/base_extension.dart';
+import 'package:may/config/base_widget.dart';
+import 'package:may/data/config/base_route.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({Key? key}) : super(key: key);

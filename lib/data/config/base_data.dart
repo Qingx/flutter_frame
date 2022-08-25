@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:qinghe_ios/generated/json/base/json_convert_content.dart';
+import 'package:may/generated/json/base/json_convert_content.dart';
 
 abstract class DataSource {
   bool get isDataEmpty;

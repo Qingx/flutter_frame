@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/base_extension.dart';
-import 'package:qinghe_ios/config/base_widget.dart';
-import 'package:qinghe_ios/controller/fourth_controller.dart';
-import 'package:qinghe_ios/data/entity/user_entity.dart';
-import 'package:qinghe_ios/r.dart';
+import 'package:may/config/base_extension.dart';
+import 'package:may/config/base_widget.dart';
+import 'package:may/controller/fourth_controller.dart';
+import 'package:may/data/entity/user_entity.dart';
+import 'package:may/r.dart';
 
 class FourthPage extends GetView<FourthController> {
   const FourthPage({Key? key}) : super(key: key);

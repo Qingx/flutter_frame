@@ -3,18 +3,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:qinghe_ios/config/base_tool.dart';
-import 'package:qinghe_ios/config/base_widget.dart';
-import 'package:qinghe_ios/config/base_extension.dart';
-import 'package:qinghe_ios/config/data_config.dart';
-import 'package:qinghe_ios/controller/count_controller.dart';
-import 'package:qinghe_ios/data/config/base_route.dart';
-import 'package:qinghe_ios/theme/theme_bloc.dart';
-import 'package:qinghe_ios/theme/theme_event.dart';
-import 'package:qinghe_ios/ui/dialog/alert_dialog.dart';
-import 'package:qinghe_ios/config/base_theme.dart';
-import 'package:qinghe_ios/ui/page/fifth_page.dart';
-import 'package:qinghe_ios/ui/page/second_page.dart';
+import 'package:may/config/base_tool.dart';
+import 'package:may/config/base_widget.dart';
+import 'package:may/config/base_extension.dart';
+import 'package:may/config/data_config.dart';
+import 'package:may/controller/count_controller.dart';
+import 'package:may/data/config/base_route.dart';
+import 'package:may/theme/theme_bloc.dart';
+import 'package:may/theme/theme_event.dart';
+import 'package:may/ui/dialog/alert_dialog.dart';
+import 'package:may/config/base_theme.dart';
+import 'package:may/ui/page/fifth_page.dart';
+import 'package:may/ui/page/second_page.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({Key? key}) : super(key: key);
@@ -31,6 +31,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
 
+    DataConfig.getIns().firstUseApp = false;
     onSystemThemeChangedListener();
     // doSystemThemeChangedListener();
     updateCount();
@@ -151,8 +152,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
       _countStream?.cancel();
     }
 
-    _countStream =
-        Stream.periodic(const Duration(milliseconds: 1000), (i) => i).take(120).listen((event) {
+    _countStream = Stream.periodic(const Duration(milliseconds: 1000), (i) => i).take(120).listen((event) {
       CountController.find.setCount();
 
       // CountController.find.number.value.toString().printf;
@@ -260,7 +260,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               color: Theme.of(context).to.widgetColor,
             ),
-            child:  const Text(
+            child: const Text(
               "dialog",
               style: TextStyle(
                 color: Colors.white,

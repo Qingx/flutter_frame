@@ -1,14 +1,16 @@
 import 'package:get/get.dart';
-import 'package:qinghe_ios/controller/fourth_controller.dart';
-import 'package:qinghe_ios/ui/page/Initial_page.dart';
-import 'package:qinghe_ios/ui/page/fifth_page.dart';
-import 'package:qinghe_ios/ui/page/fourth_page.dart';
-import 'package:qinghe_ios/ui/page/second_page.dart';
-import 'package:qinghe_ios/ui/page/third_page.dart';
+import 'package:may/config/data_config.dart';
+import 'package:may/controller/fourth_controller.dart';
+import 'package:may/ui/page/Initial_page.dart';
+import 'package:may/ui/page/fifth_page.dart';
+import 'package:may/ui/page/fourth_page.dart';
+import 'package:may/ui/page/second_page.dart';
+import 'package:may/ui/page/third_page.dart';
 
 class BaseRoute {
-  static const String Initial = "/";
-  static const String Second = "/Second";
+  static String Splash = DataConfig.getIns().isFirstUseApp ? "/" : "/Initial";
+  static String Initial = DataConfig.getIns().isFirstUseApp ? "/" : "/Initial";
+  static String Second = DataConfig.getIns().isFirstUseApp ? "/Second" : "/";
   static const String Third = "/Third";
   static const String Fourth = "/Fourth";
   static const String Fifth = "/Fifth";
@@ -24,7 +26,6 @@ class BasePage {
       page: () => const FourthPage(),
       binding: BindingsBuilder(() => {FourthController.put}),
     ),
-    GetPage(name: BaseRoute.Fifth, page: () =>  FifthPage()),
-
+    GetPage(name: BaseRoute.Fifth, page: () => FifthPage()),
   ];
 }
