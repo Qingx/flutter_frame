@@ -15,6 +15,15 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/trustly/TrustlyAndroidSdk")
+            credentials {
+                username = "Qingx"
+                password = "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"
+            }
+        }
     }
 }
 

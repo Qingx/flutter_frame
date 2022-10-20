@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "trustlyiossdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/trustly/TrustlyIosSdk",
+      "state" : {
+        "revision" : "d3d66d999aa4221754bc137fb997ce4784de9382",
+        "version" : "3.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}

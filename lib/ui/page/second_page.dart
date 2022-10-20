@@ -1,7 +1,12 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:may/config/base_extension.dart';
 import 'package:may/config/base_widget.dart';
+import 'package:may/config/method_channel_manager.dart';
 import 'package:may/data/config/base_route.dart';
 
 class SecondPage extends StatefulWidget {
@@ -13,11 +18,34 @@ class SecondPage extends StatefulWidget {
 
 class _SecondPageState extends State<SecondPage> {
   @override
+  void initState() {
+    super.initState();
+
+    var channel = const BasicMessageChannel("aa", StandardMessageCodec());
+    channel.setMessageHandler((message) async {
+      log("wangxiang:$message");
+      return null;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: BaseWidget.appBar(title: "Second"),
-      body: const _BodyWidget(),
+      // body: const _BodyWidget(),
+      body: Platform.isAndroid
+          ? const AndroidView(
+              viewType: "android.testView",
+              creationParams: "123",
+              creationParamsCodec: StandardMessageCodec(),
+            )
+          // ? _BodyWidget()
+          : const UiKitView(
+              viewType: "iOS.testView",
+              creationParams: "123",
+              creationParamsCodec: StandardMessageCodec(),
+            ),
     );
   }
 }
@@ -77,7 +105,10 @@ class _BodyWidgetState extends State<_BodyWidget> {
               fontSize: 16,
             ),
           ),
-        ).onClick(() => Get.toNamed(BaseRoute.Third)).positionOn(bottom: 40),
+        ).onClick(() {
+          // Get.toNamed(BaseRoute.Third);
+          MethodChannelManager.startNewPage();
+        }).positionOn(bottom: 40),
       ],
     );
   }

@@ -3,6 +3,7 @@ package com.ym.qinghe.flutter.qinghe_ios
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -31,5 +32,7 @@ class MainActivity : FlutterFragmentActivity(), DeviceKeyMonitor.OnKeyListener {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         GeneratedPluginRegistrant.registerWith(flutterEngine)
+        StartPageManager.configureFlutterEngineForFreshchat(flutterEngine, this)
+        flutterEngine.plugins.add(TestViewPlugin())
     }
 }
