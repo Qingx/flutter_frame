@@ -9,7 +9,23 @@ import UIKit
 import TrustlyIosSdk
 import WebKit
 
-class TestView:NSObject,FlutterPlatformView{
+class TestView:NSObject,FlutterPlatformView,TrustlyCheckoutDelegate{
+    func onTrustlyCheckoutRequstToOpenURLScheme(urlScheme: String) {
+        
+    }
+    
+    func onTrustlyCheckoutSuccessfull(urlString: String?) {
+    
+    }
+    
+    func onTrustlyCheckoutAbort(urlString: String?) {
+    
+    }
+    
+    func onTrustlyCheckoutError() {
+    
+    }
+    
     private var _view: UIView
     
     
@@ -31,25 +47,14 @@ class TestView:NSObject,FlutterPlatformView{
             channel.sendMessage("a message from iOS")
     }
     
-    
     func createNativeView(view _view: UIView,arguments args: Any?){
-        _view.backgroundColor = UIColor.red
-//        let nativeLabel = UILabel()
-//        nativeLabel.text = args as? String
-//        nativeLabel.textColor = UIColor.black
-//        nativeLabel.textAlignment = .center
-//        nativeLabel.frame = CGRect(x: 0, y: 0, width: 180, height: 48.0)
-//        _view.addSubview(nativeLabel)
-//
-       let trustyView = TrustlyWKWebView(checkoutUrl: "https://checkout.test.trustly.com/checkout?OrderID=13595627702&SessionID=03ea7ae8-7df6-44e3-ba51-35ee72d67cb5", frame: _view.bounds)
-//        trustyView?.backgroundColor=UIColor.yellow
-        trustyView?.frame=CGRect(x: 0, y: 0, width: 600, height: 600)
+        let trustyView = TrustlyWKWebView(
+            checkoutUrl: "https://checkout.test.trustly.com/checkout?OrderID=13595627702&SessionID=03ea7ae8-7df6-44e3-ba51-35ee72d67cb5",
+            frame:UIScreen.main.bounds
+        )
+        
+        trustyView?.delegate = self
 
-//        let webView=WKWebView()
-//        var url=URL(string: "https://checkout.test.trustly.com/checkout?OrderID=13595627702&SessionID=03ea7ae8-7df6-44e3-ba51-35ee72d67cb5")
-//        webView.load(URLRequest(url: url!))
-//        webView.frame=CGRect(x: 0, y: 0, width: 600, height: 600)
-//        webView.addSubview(trustyView!)
         _view.addSubview(trustyView!)
     }
 }

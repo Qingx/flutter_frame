@@ -73,4 +73,5 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'trustly.android.library:trustly-android-library:+'
+    implementation 'androidx.browser:browser:1.4.0'
 }

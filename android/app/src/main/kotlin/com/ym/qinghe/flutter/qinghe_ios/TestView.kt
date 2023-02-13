@@ -1,5 +1,6 @@
 package com.ym.qinghe.flutter.qinghe_ios
 
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.View
@@ -14,15 +15,21 @@ import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
 
 class TestView(
+    private val activity: Activity,
     context: Context,
-    private val messenger: BinaryMessenger,
+    val messenger: BinaryMessenger,
     viewId: Int,
-    args: Any?
+    private var args: Any?
 ) : PlatformView {
     private var nativeView: View? = null
 
+    companion object {
+        const val testCheckUrl =
+            "https://checkout.test.trustly.com/checkout?OrderID=13595627702&SessionID=03ea7ae8-7df6-44e3-ba51-35ee72d67cb5"
+    }
+
     init {
-        Log.e("okhttp","nativeView")
+        args = testCheckUrl
         val eventHandler = object : TrustlyEventHandler {
             override fun onTrustlyCheckoutSuccess(p0: TrustlySDKEventObject?) {
                 BasicMessageChannel(messenger, "aa", StandardMessageCodec()).also {
@@ -43,11 +50,7 @@ class TestView(
             }
         }
 
-//        val trustlyWebView = TrustlyWebView(
-//            context as AppCompatActivity,
-//            "https://checkout.test.trustly.com/checkout?OrderID=13595627702&SessionID=03ea7ae8-7df6-44e3-ba51-35ee72d67cb5",
-//            eventHandler
-//        )
+        val trustlyWebView = MyTrustlyWebView(activity, args as String, eventHandler)
 
         val textView = TextView(context).apply {
             text = args as? String
@@ -58,7 +61,7 @@ class TestView(
             }
         }
 
-        nativeView = textView
+        nativeView = trustlyWebView
     }
 
     override fun getView(): View {

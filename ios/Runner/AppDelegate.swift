@@ -8,7 +8,7 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-    TestViewPlugin.register(with: self.registrar(forPlugin: "")!)
+    TestViewPlugin.register(with: self.registrar(forPlugin: "trustlyPlugin")!)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

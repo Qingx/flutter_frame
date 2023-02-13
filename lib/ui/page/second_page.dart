@@ -3,17 +3,26 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:may/config/base_extension.dart';
 import 'package:may/config/base_widget.dart';
 import 'package:may/config/method_channel_manager.dart';
-import 'package:may/data/config/base_route.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({Key? key}) : super(key: key);
 
   @override
   State<SecondPage> createState() => _SecondPageState();
+}
+
+enum TrustlyEventStatus {
+  error("-1"),
+  redirect("0"),
+  abort("-2"),
+  success("1");
+
+  final String code;
+
+  const TrustlyEventStatus(this.code);
 }
 
 class _SecondPageState extends State<SecondPage> {
@@ -24,6 +33,19 @@ class _SecondPageState extends State<SecondPage> {
     var channel = const BasicMessageChannel("aa", StandardMessageCodec());
     channel.setMessageHandler((message) async {
       log("wangxiang:$message");
+      var code = (message as Map<String, dynamic>)["code"];
+      switch (code) {
+        case TrustlyEventStatus.error:
+          break;
+        case TrustlyEventStatus.redirect:
+          break;
+        case TrustlyEventStatus.abort:
+          break;
+        case TrustlyEventStatus.success:
+          break;
+        default:
+          break;
+      }
       return null;
     });
   }

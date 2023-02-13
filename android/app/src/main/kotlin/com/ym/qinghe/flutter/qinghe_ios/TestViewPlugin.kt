@@ -1,13 +1,16 @@
 package com.ym.qinghe.flutter.qinghe_ios
 
+import android.app.Activity
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 
-class TestViewPlugin() : FlutterPlugin {
+class TestViewPlugin(
+    private val activity: Activity
+) : FlutterPlugin {
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         binding.apply {
             platformViewRegistry.registerViewFactory(
-                "android.testView", TestViewFactory(binaryMessenger)
+                "android.testView", TestViewFactory(activity, binaryMessenger)
             )
         }
     }

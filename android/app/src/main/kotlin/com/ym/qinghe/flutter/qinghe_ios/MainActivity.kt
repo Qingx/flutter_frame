@@ -33,6 +33,6 @@ class MainActivity : FlutterFragmentActivity(), DeviceKeyMonitor.OnKeyListener {
         super.configureFlutterEngine(flutterEngine)
         GeneratedPluginRegistrant.registerWith(flutterEngine)
         StartPageManager.configureFlutterEngineForFreshchat(flutterEngine, this)
-        flutterEngine.plugins.add(TestViewPlugin())
+        flutterEngine.plugins.add(TestViewPlugin(this))
     }
 }
