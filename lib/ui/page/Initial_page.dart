@@ -13,8 +13,6 @@ import 'package:may/theme/theme_bloc.dart';
 import 'package:may/theme/theme_event.dart';
 import 'package:may/ui/dialog/alert_dialog.dart';
 import 'package:may/config/base_theme.dart';
-import 'package:may/ui/page/fifth_page.dart';
-import 'package:may/ui/page/second_page.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({Key? key}) : super(key: key);

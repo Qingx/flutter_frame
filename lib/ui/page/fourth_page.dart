@@ -7,6 +7,13 @@ import 'package:may/controller/fourth_controller.dart';
 import 'package:may/data/entity/user_entity.dart';
 import 'package:may/r.dart';
 
+class ClassA {
+  String name;
+  String age;
+
+  ClassA(name, age) : name = "1",age= "2";
+}
+
 class FourthPage extends GetView<FourthController> {
   const FourthPage({Key? key}) : super(key: key);
 
@@ -26,7 +33,7 @@ class FourthPage extends GetView<FourthController> {
           ),
         ),
         onError: (error) {
-          return BaseWidget.normalErrorWidget(error!);
+          return BaseWidget.normalErrorWidget(error!).onClick(controller.doLoadPage);
         },
         onEmpty: BaseWidget.normalEmptyWidget("sorry on empty"),
       ),

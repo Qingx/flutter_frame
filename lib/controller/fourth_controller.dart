@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:may/data/entity/user_entity.dart';
 import 'package:rxdart/rxdart.dart';
@@ -15,11 +17,11 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
 
   static FourthController get find => Get.find<FourthController>(tag: tag);
 
-  // RxBool mStatus =false.obs;
   RxInt number = 0.obs;
 
+  int count = 0;
+
   void doSomething() {
-    // _doTest();
     Get.snackbar("hi", "message");
 
     // Get.defaultDialog(title: "hi message");
@@ -34,57 +36,52 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
     // );
   }
 
-  void _updateCount() {
-    number.value += 1;
-    update();
+  void doLoadPage() {
+    change(value, status: RxStatus.loading());
+    Stream.fromFuture(Future.delayed(const Duration(milliseconds: 3000)))
+        .flatMap((event) => Stream.error("sorry on error"))
+        .onErrorReturn(UserEntity(phone: "11111111"))
+        .listen(
+      (event) {
+        value = event;
+        change(value, status: RxStatus.success());
+      },
+      onError: (error, stack) {
+        change(value, status: RxStatus.error(error.toString()));
+      },
+      onDone: () {
+        doTimer();
+        log("onDone:${value.toString()}");
+      },
+    );
   }
 
-  void _doTest() {
-    List<UserEntity> list = [
-      UserEntity(id: "1", name: "11"),
-      UserEntity(id: "1", name: "12"),
-      UserEntity(id: "2", name: "21"),
-      UserEntity(id: "3", name: "31"),
-      UserEntity(id: "3", name: "32"),
-      UserEntity(id: "4", name: "41"),
-    ];
-    var set=list.map((e) => e.id).toSet();
-    list.retainWhere((element) => set.remove(element.id));
-    print("wangxiang:$list");
+  void doTimer() {
+    Stream.periodic(const Duration(milliseconds: 1000)).take(60).listen((event) {
+      // value?.countNum++;
+      number.value += 1;
+      // count++;
+      update();
+    });
   }
 
   @override
   void onInit() {
     super.onInit();
-    print("wangxiang:onInit()");
-
-    Stream.fromFuture(Future.delayed(const Duration(milliseconds: 1000)))
-        .flatMap((event) => Stream.error("sorry on error"))
-        .onErrorReturn(UserEntity(phone: "11111111"))
-        .listen(
-      (event) {
-        change(event, status: RxStatus.success());
-      },
-      onError: (error, stack) {
-        change(UserEntity(), status: RxStatus.error(error.toString()));
-      },
-      onDone: () {},
-    );
+    log("getx:onInit()");
   }
 
   @override
   void onReady() {
     super.onReady();
-    print("wangxiang:onReady()");
 
-    Stream.periodic(const Duration(milliseconds: 1000)).take(60).listen((event) {
-      _updateCount();
-    });
+    doLoadPage();
+    log("getx:onReady()");
   }
 
   @override
   void onClose() {
     super.onClose();
-    print("wangxiang:onClose()");
+    log("getx:onClose()");
   }
 }
