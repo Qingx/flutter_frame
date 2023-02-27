@@ -21,7 +21,7 @@ allprojects {
             url = uri("https://maven.pkg.github.com/trustly/TrustlyAndroidSdk")
             credentials {
                 username = "Qingx"
-                password = "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"
+                password = "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"
             }
         }
     }

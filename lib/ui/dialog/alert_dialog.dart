@@ -8,8 +8,8 @@ Widget alertDialog({
   String? message = "",
   Widget? richTitle,
   Widget? richMessage,
-  required Function onConfirm,
-  required Function onDismiss,
+  required VoidCallback onConfirm,
+  required VoidCallback onDismiss,
 }) {
   return Center(
     child: Material(

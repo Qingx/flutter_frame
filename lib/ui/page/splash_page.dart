@@ -29,8 +29,14 @@ class _SplashPageState extends State<SplashPage> {
     // var result = await doAwaitCountNum();
     // var result = await doTestIsolate();
     // var result = await doTestLoadBalancer();
-    // doTestEventLoop();
+    doTestEventLoops();
     // log("result:$result");
+  }
+
+  void doTest() {
+    log("message0"); //Synchronous code
+    Future(() => log("message1")); //Asynchronous code
+    log("message2"); //Synchronous code
   }
 
   Future<void> doTestFuture() async {
@@ -67,7 +73,10 @@ class _SplashPageState extends State<SplashPage> {
         log("doTestCompute:$result");
       }
 
-      result = await Stream.value(result).delay(const Duration(seconds: 1)).last;
+      result = await Stream
+          .value(result)
+          .delay(const Duration(seconds: 1))
+          .last;
 
       return result;
     }, number);
@@ -100,13 +109,12 @@ class _SplashPageState extends State<SplashPage> {
       // port0.send(result);
     }, port0);
 
-    // SendPort port1;
-    // receive0.listen((message) {
-    //   if (message is SendPort) {
-    //     SendPort port1 = message;
-    //     port1.send("receive0==>message");
-    //   }
-    // });
+    receive0.listen((message) {
+      if (message is SendPort) {
+        SendPort port1 = message;
+        port1.send("receive0==>message");
+      }
+    });
 
     // var value = await receive0.first;
     // var value = await receive0.firstWhere((element) => false);
@@ -128,7 +136,7 @@ class _SplashPageState extends State<SplashPage> {
     }, 100000000000);
   }
 
-  void doTestEventLoop() {
+  void doTestEventLoops() {
     scheduleMicrotask(() => log("microTask:0"));
 
     Future.delayed(const Duration(seconds: 1), () => log("event delay"));
@@ -142,8 +150,6 @@ class _SplashPageState extends State<SplashPage> {
 
     scheduleMicrotask(() => log("microTask:2"));
     Future.microtask(() => log("microTask:3"));
-
-
   }
 
   @override
@@ -152,7 +158,10 @@ class _SplashPageState extends State<SplashPage> {
       resizeToAvoidBottomInset: false,
       appBar: BaseWidget.appBar(title: "Splash"),
       body: Container(
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -167,7 +176,9 @@ class _SplashPageState extends State<SplashPage> {
               margin: const EdgeInsets.only(bottom: 80),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(4)),
-                color: Theme.of(context).toggleableActiveColor,
+                color: Theme
+                    .of(context)
+                    .toggleableActiveColor,
               ),
               child: const Text(
                 "Next",
@@ -177,21 +188,7 @@ class _SplashPageState extends State<SplashPage> {
                   decoration: TextDecoration.none,
                 ),
               ),
-            ).onClick(() async {
-              // Get.toNamed(BaseRoute.Fourth);
-
-              // log("onClick:0");
-              // doTestFuture();
-              // log("onClick:1");
-
-              // // var result = doTestCountNum();
-              // // var result = await doTestCompute();
-              // // var result = await doAwaitCountNum();
-              // // var result = await doTestIsolate();
-              // var result = await doTestLoadBalancer();
-              doTestEventLoop();
-              // log("result:$result");
-            }),
+            ).onClick(doClick),
           ],
         ),
       ),

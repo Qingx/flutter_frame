@@ -37,9 +37,9 @@ class BaseApi {
     BaseOptions options = BaseOptions();
     options.baseUrl =
         isFileDio ? HttpConfig.globalEnv.fileUrl : HttpConfig.globalEnv.baseUrl;
-    options.connectTimeout = 16000;
-    options.receiveTimeout = isFileDio ? 48000 : 16000;
-    options.sendTimeout = isFileDio ? 48000 : 16000;
+    options.connectTimeout = const Duration(milliseconds: 16000);
+    options.receiveTimeout = isFileDio ? const Duration(milliseconds: 48000) : const Duration(milliseconds: 16000);
+    options.sendTimeout = isFileDio ? const Duration(milliseconds: 48000) : const Duration(milliseconds: 16000);
 
     Dio dio = Dio(options);
 
@@ -89,7 +89,7 @@ class BaseApi {
 
       return data;
     } on DioError catch (error) {
-      if (error.message.startsWith("SocketException")) {
+      if (error.message?.startsWith("SocketException")??false) {
         return Future.error(SocketMiss());
       } else {
         return Future.error(BaseMiss());
@@ -130,7 +130,7 @@ class BaseApi {
       return data;
     } on DioError catch (error) {
       print(error);
-      if (error.message.startsWith("SocketException")) {
+      if (error.message?.startsWith("SocketException")??false) {
         return Future.error(SocketMiss());
       } else {
         return Future.error(BaseMiss());

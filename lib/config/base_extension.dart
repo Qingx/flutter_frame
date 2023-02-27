@@ -61,13 +61,11 @@ extension FunString on String {
 }
 
 extension WidgetClick on Widget {
-  InkWell onClick( Function doClick) {
+  InkWell onClick(VoidCallback doClick) {
     return InkWell(
       radius: 0,
       highlightColor: Colors.transparent,
-      onTap: () {
-        doClick();
-      },
+      onTap: doClick,
       child: this,
     );
   }
