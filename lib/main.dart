@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -28,27 +29,56 @@ void main() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     CountController.put;
     UserController.put;
 
-    ///GetX
-    return GetMaterialApp(
-      themeMode: DataConfig.getIns().themeMode
-          ? ThemeMode.system
-          : DataConfig.getIns().themeType == 0
-              ? ThemeMode.light
-              : ThemeMode.dark,
-      theme: BaseTheme.light,
-      darkTheme: BaseTheme.dark,
-      debugShowCheckedModeBanner: false,
-      getPages: BasePage.pages,
-      defaultTransition: Transition.rightToLeft,
+    return GestureDetector(
+      onTap: (){
+        log("message==>onTap");
+      },
+      onPanCancel: (){
+        log("message==>onPanCancel");
+      },
+      onPanEnd: (value){
+        log("message==>onPanEnd");
+      },
+      child: GetMaterialApp(
+        themeMode: DataConfig.getIns().themeMode
+            ? ThemeMode.system
+            : DataConfig.getIns().themeType == 0
+                ? ThemeMode.light
+                : ThemeMode.dark,
+        theme: BaseTheme.light,
+        darkTheme: BaseTheme.dark,
+        debugShowCheckedModeBanner: false,
+        getPages: BasePage.pages,
+        defaultTransition: Transition.rightToLeft,
+      ),
     );
+
+    // ///GetX
+    // return GetMaterialApp(
+    //   themeMode: DataConfig.getIns().themeMode
+    //       ? ThemeMode.system
+    //       : DataConfig.getIns().themeType == 0
+    //           ? ThemeMode.light
+    //           : ThemeMode.dark,
+    //   theme: BaseTheme.light,
+    //   darkTheme: BaseTheme.dark,
+    //   debugShowCheckedModeBanner: false,
+    //   getPages: BasePage.pages,
+    //   defaultTransition: Transition.rightToLeft,
+    // );
 
     ///Bloc
     // return MultiBlocProvider(

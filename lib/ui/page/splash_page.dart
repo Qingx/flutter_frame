@@ -5,7 +5,6 @@ import 'dart:isolate';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate/isolate.dart';
-import 'package:may/config/base_extension.dart';
 import 'package:may/config/base_widget.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -73,10 +72,7 @@ class _SplashPageState extends State<SplashPage> {
         log("doTestCompute:$result");
       }
 
-      result = await Stream
-          .value(result)
-          .delay(const Duration(seconds: 1))
-          .last;
+      result = await Stream.value(result).delay(const Duration(seconds: 1)).last;
 
       return result;
     }, number);
@@ -157,41 +153,47 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: BaseWidget.appBar(title: "Splash"),
-      body: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Expanded(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              margin: const EdgeInsets.only(bottom: 80),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
-                color: Theme
-                    .of(context)
-                    .toggleableActiveColor,
-              ),
-              child: const Text(
-                "Next",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-            ).onClick(doClick),
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: 100,
+        itemBuilder: (context, index) {
+          return BaseWidget.testItemWidget(index, content: index.toString());
+        },
       ),
+      // body: Container(
+      //   width: MediaQuery
+      //       .of(context)
+      //       .size
+      //       .width,
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     crossAxisAlignment: CrossAxisAlignment.center,
+      //     children: [
+      //       const Expanded(
+      //         child: Center(
+      //           child: CircularProgressIndicator(),
+      //         ),
+      //       ),
+      //       Container(
+      //         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      //         margin: const EdgeInsets.only(bottom: 80),
+      //         decoration: BoxDecoration(
+      //           borderRadius: const BorderRadius.all(Radius.circular(4)),
+      //           color: Theme
+      //               .of(context)
+      //               .toggleableActiveColor,
+      //         ),
+      //         child: const Text(
+      //           "Next",
+      //           style: TextStyle(
+      //             color: Colors.white,
+      //             fontSize: 14,
+      //             decoration: TextDecoration.none,
+      //           ),
+      //         ),
+      //       ).onClick(doClick),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
