@@ -1,10 +1,8 @@
-package com.ym.qinghe.flutter.qinghe_ios
+package com.flutter.qingx
 
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugins.GeneratedPluginRegistrant

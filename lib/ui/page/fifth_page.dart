@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class FifthPage extends StatelessWidget {
   FifthPage() {
@@ -9,19 +10,14 @@ class FifthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = WebViewController();
+
+
     log("wangxiang:1");
     return Scaffold(
       body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: TextField(
-                controller: TextEditingController(),
-              ),
-            )
-          ],
+        child: WebViewWidget(
+          controller: controller,
         ),
       ),
     );

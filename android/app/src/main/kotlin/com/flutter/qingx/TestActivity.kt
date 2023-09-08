@@ -1,14 +1,15 @@
-package com.ym.qinghe.flutter.qinghe_ios
+package com.flutter.qingx
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.flutter.qingx.databinding.ActivityTestBinding
 import com.trustlyAndroidLibrary.TrustlyWebView
-import io.flutter.plugin.common.BinaryMessenger
-import kotlinx.android.synthetic.main.activity_test.*
 
 class TestActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityTestBinding
 
     companion object {
         fun start(context: Context?) {
@@ -22,14 +23,15 @@ class TestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+        binding = ActivityTestBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val trustlyWebView = TrustlyWebView(
             this,
             "https://checkout.test.trustly.com/checkout?OrderID=13595627702&SessionID=03ea7ae8-7df6-44e3-ba51-35ee72d67cb5"
         )
 
-        web_view.addView(trustlyWebView)
+        binding.webView.addView(trustlyWebView)
     }
 
     override fun onBackPressed() {

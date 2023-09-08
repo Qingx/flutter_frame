@@ -1,13 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ym.qinghe.flutter.qinghe_ios">
+    package="com.flutter.qingx">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="may"
+        android:label="Qingx"
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"

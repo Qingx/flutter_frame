@@ -51,6 +51,8 @@ dependencies:
   flutter_form_builder: ^7.8.0
   isolate: ^2.1.1
   firebase_crashlytics: ^3.0.15
+  webview_flutter: ^4.2.2
+#  idenfy_sdk_flutter: ^2.3.1
 
 dev_dependencies:
   flutter_test:

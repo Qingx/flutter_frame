@@ -1,14 +1,11 @@
-package com.ym.qinghe.flutter.qinghe_ios
+package com.flutter.qingx
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.trustlyAndroidLibrary.TrustlyEventHandler
 import com.trustlyAndroidLibrary.TrustlySDKEventObject
-import com.trustlyAndroidLibrary.TrustlyWebView
 import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.StandardMessageCodec

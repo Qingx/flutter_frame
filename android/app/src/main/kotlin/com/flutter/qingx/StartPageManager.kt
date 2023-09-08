@@ -1,4 +1,4 @@
-package com.ym.qinghe.flutter.qinghe_ios
+package com.flutter.qingx
 
 import android.content.Context
 import io.flutter.embedding.engine.FlutterEngine

@@ -1,4 +1,4 @@
-package com.ym.qinghe.flutter.qinghe_ios
+package com.flutter.qingx
 
 import android.app.Activity
 import io.flutter.embedding.engine.plugins.FlutterPlugin
