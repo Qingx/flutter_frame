@@ -1,5 +1,4 @@
 import 'package:may/data/config/base_api.dart';
-import 'package:rxdart/rxdart.dart';
 
 class UserApi extends BaseApi {
   UserApi._();

@@ -19,8 +19,6 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
 
   RxInt number = 0.obs;
 
-  int count = 0;
-
   void doSomething() {
     Get.snackbar("hi", "message");
 
@@ -38,9 +36,10 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
 
   void doLoadPage() {
     change(value, status: RxStatus.loading());
-    Stream.fromFuture(Future.delayed(const Duration(milliseconds: 3000)))
+    var future = Future.delayed(const Duration(milliseconds: 3000));
+    Stream.fromFuture(future)
         .flatMap((event) => Stream.error("sorry on error"))
-        .onErrorReturn(UserEntity(phone: "11111111"))
+        .onErrorReturn(UserEntity.empty())
         .listen(
       (event) {
         value = event;
@@ -60,7 +59,6 @@ class FourthController extends GetxController with StateMixin<UserEntity> {
     Stream.periodic(const Duration(milliseconds: 1000)).take(60).listen((event) {
       // value?.countNum++;
       number.value += 1;
-      // count++;
       update();
     });
   }

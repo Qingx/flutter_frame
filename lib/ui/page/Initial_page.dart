@@ -34,7 +34,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
     // doSystemThemeChangedListener();
     updateCount();
 
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -43,7 +43,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
 
     _countStream?.cancel();
 
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
@@ -61,6 +61,8 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
         break;
       case AppLifecycleState.detached: // APP结束时调用
         break;
+      default:
+        break;
     }
   }
 
@@ -71,9 +73,9 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
 
   ///Bloc
   void doSystemThemeChangedListener() {
-    var window = WidgetsBinding.instance!.window;
+    var window = WidgetsBinding.instance.window;
     window.onPlatformBrightnessChanged = () {
-      WidgetsBinding.instance?.handlePlatformBrightnessChanged();
+      WidgetsBinding.instance.handlePlatformBrightnessChanged();
       var brightness = window.platformBrightness;
       if (DataConfig.getIns().themeMode) {
         BaseTool.toast("themeType:${brightness.toString()}");
@@ -84,7 +86,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
 
   ///Bloc
   void doFollowSystemChanged(bool value) {
-    var window = WidgetsBinding.instance!.window;
+    var window = WidgetsBinding.instance.window;
     var state = window.platformBrightness;
 
     BlocProvider.of<ThemeBloc>(context).add(ThemeFollowSystemChangeEvent(state));
@@ -99,9 +101,9 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
 
   ///GetX
   void onSystemThemeChangedListener() {
-    var window = WidgetsBinding.instance!.window;
+    var window = WidgetsBinding.instance.window;
     window.onPlatformBrightnessChanged = () {
-      WidgetsBinding.instance?.handlePlatformBrightnessChanged();
+      WidgetsBinding.instance.handlePlatformBrightnessChanged();
       var brightness = window.platformBrightness;
       if (DataConfig.getIns().themeMode) {
         BaseTool.toast("themeType:${brightness.toString()}");
@@ -117,7 +119,7 @@ class _InitialPageState extends State<InitialPage> with WidgetsBindingObserver {
 
     if (!lastMode) {
       Get.changeThemeMode(ThemeMode.system);
-      var window = WidgetsBinding.instance!.window;
+      var window = WidgetsBinding.instance.window;
       var state = window.platformBrightness;
       DataConfig.getIns().themeType = state == Brightness.light ? 0 : 1;
     } else {

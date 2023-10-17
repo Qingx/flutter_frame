@@ -27,7 +27,7 @@ class BasePage {
     GetPage(
       name: BaseRoute.Fourth,
       page: () => const FourthPage(),
-      binding: BindingsBuilder(() => {FourthController.put}),
+      binding: BindingsBuilder(() => FourthController.put),
     ),
     GetPage(name: BaseRoute.Fifth, page: () => FifthPage()),
   ];

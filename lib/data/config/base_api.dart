@@ -35,8 +35,7 @@ class BaseApi {
   /// 创建dio
   static Dio _createDio(bool isFileDio) {
     BaseOptions options = BaseOptions();
-    options.baseUrl =
-        isFileDio ? HttpConfig.globalEnv.fileUrl : HttpConfig.globalEnv.baseUrl;
+    options.baseUrl = isFileDio ? HttpConfig.globalEnv.fileUrl : HttpConfig.globalEnv.baseUrl;
     options.connectTimeout = const Duration(milliseconds: 16000);
     options.receiveTimeout = isFileDio ? const Duration(milliseconds: 48000) : const Duration(milliseconds: 16000);
     options.sendTimeout = isFileDio ? const Duration(milliseconds: 48000) : const Duration(milliseconds: 16000);
@@ -49,10 +48,8 @@ class BaseApi {
   }
 
   /// 发起Get请求
-  Stream<BaseData<T>> get<T>(String pathOrUrl,
-          {Map<String, dynamic>? queryParameters}) =>
-      Stream.fromFuture(_http<T>(pathOrUrl, HttpConfig.Get,
-          queryParameters: queryParameters!));
+  Stream<BaseData<T>> get<T>(String pathOrUrl, {Map<String, dynamic>? queryParameters}) =>
+      Stream.fromFuture(_http<T>(pathOrUrl, HttpConfig.Get, queryParameters: queryParameters!));
 
   /// 发起Post请求
   Stream<BaseData<T>> post<T>(
@@ -60,21 +57,18 @@ class BaseApi {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? requestBody,
   }) =>
-      Stream.fromFuture(_http<T>(pathOrUrl, HttpConfig.Post,
-          queryParameters: queryParameters, requestBody: requestBody));
+      Stream.fromFuture(
+          _http<T>(pathOrUrl, HttpConfig.Post, queryParameters: queryParameters, requestBody: requestBody));
 
   /// 发起网络请求
   Future<BaseData<T>> _http<T>(String pathOrUrl, String method,
-      {Map<String, dynamic>? queryParameters,
-      Map<String, dynamic>? requestBody}) async {
+      {Map<String, dynamic>? queryParameters, Map<String, dynamic>? requestBody}) async {
     Response? response;
     try {
       if (HttpConfig.Get == method) {
-        response = await _getDio()
-            .get(pathOrUrl, queryParameters: queryParameters ?? {});
+        response = await _getDio().get(pathOrUrl, queryParameters: queryParameters ?? {});
       } else if (HttpConfig.Post == method) {
-        response = await _getDio().post(pathOrUrl,
-            queryParameters: queryParameters ?? {}, data: requestBody ?? {});
+        response = await _getDio().post(pathOrUrl, queryParameters: queryParameters ?? {}, data: requestBody ?? {});
       }
 
       final temp = response?.data;
@@ -89,7 +83,7 @@ class BaseApi {
 
       return data;
     } on DioError catch (error) {
-      if (error.message?.startsWith("SocketException")??false) {
+      if (error.message?.startsWith("SocketException") ?? false) {
         return Future.error(SocketMiss());
       } else {
         return Future.error(BaseMiss());
@@ -98,30 +92,24 @@ class BaseApi {
   }
 
   /// Page发起Get请求
-  Stream<BasePage<T>> getPage<T>(String pathOrUrl,
-          {Map<String, dynamic>? queryParameters}) =>
-      Stream.fromFuture(_httpPage(pathOrUrl, HttpConfig.Get,
-          queryParameters: queryParameters));
+  Stream<BasePage<T>> getPage<T>(String pathOrUrl, {Map<String, dynamic>? queryParameters}) =>
+      Stream.fromFuture(_httpPage(pathOrUrl, HttpConfig.Get, queryParameters: queryParameters));
 
   /// Page发起Post请求
   Stream<BasePage<T>> postPage<T>(String pathOrUrl,
-          {Map<String, dynamic>? queryParameters,
-          Map<String, dynamic>? requestBody}) =>
-      Stream.fromFuture(_httpPage(pathOrUrl, HttpConfig.Post,
-          queryParameters: queryParameters, requestBody: requestBody));
+          {Map<String, dynamic>? queryParameters, Map<String, dynamic>? requestBody}) =>
+      Stream.fromFuture(
+          _httpPage(pathOrUrl, HttpConfig.Post, queryParameters: queryParameters, requestBody: requestBody));
 
   /// Page发起网络请求
   Future<BasePage<T>> _httpPage<T>(String pathOrUrl, String method,
-      {Map<String, dynamic>? queryParameters,
-      Map<String, dynamic>? requestBody}) async {
+      {Map<String, dynamic>? queryParameters, Map<String, dynamic>? requestBody}) async {
     Response? response;
     try {
       if (HttpConfig.Get == method) {
-        response = await _getDio()
-            .get(pathOrUrl, queryParameters: queryParameters ?? {});
+        response = await _getDio().get(pathOrUrl, queryParameters: queryParameters ?? {});
       } else if (HttpConfig.Post == method) {
-        response = await _getDio().post(pathOrUrl,
-            queryParameters: queryParameters ?? {}, data: requestBody ?? {});
+        response = await _getDio().post(pathOrUrl, queryParameters: queryParameters ?? {}, data: requestBody ?? {});
       }
 
       final temp = response?.data;
@@ -130,7 +118,7 @@ class BaseApi {
       return data;
     } on DioError catch (error) {
       print(error);
-      if (error.message?.startsWith("SocketException")??false) {
+      if (error.message?.startsWith("SocketException") ?? false) {
         return Future.error(SocketMiss());
       } else {
         return Future.error(BaseMiss());
@@ -149,8 +137,7 @@ class BaseApi {
   static var fileTime = 0;
 
   /// 获取全局唯一ID
-  String getUID() =>
-      "flutter_${DateTime.now().microsecondsSinceEpoch}_${fileTime++}_${Random().nextInt(10000000)}";
+  String getUID() => "flutter_${DateTime.now().microsecondsSinceEpoch}_${fileTime++}_${Random().nextInt(10000000)}";
 
   /// 请求上传文件
   Future<BaseData<String>> actualUpload(String path) async {
@@ -196,19 +183,14 @@ class BaseApi {
 
   ///上传多个文件
   Stream<List<String?>> uploadFiles(List<String> paths) {
-    return Stream.fromIterable(paths)
-        .asyncExpand((value) => uploadFile(value))
-        .toList()
-        .asStream();
+    return Stream.fromIterable(paths).asyncExpand((value) => uploadFile(value)).toList().asStream();
   }
 
   /// 全局获取文件签名
-  static Stream<String?> globalSign =
-      ins.refreshSign().shareReplay(maxSize: 1);
+  static Stream<String?> globalSign = ins.refreshSign().shareReplay(maxSize: 1);
 
   static var tokenTime = 0;
   static Stream<String>? globalToken;
-
 
   // Observable<T> autoToken<T>(Observable<T> call()) {
   //   var count = 0;
@@ -276,17 +258,17 @@ class BaseApi {
 /// 请求拦截器
 class HttpInterceptor extends Interceptor {
   @override
-  onRequest(RequestOptions options,RequestInterceptorHandler handler) async {
+  onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     options.headers['sign'] = UserConfig.getIns().sign;
 
     var token = UserConfig.getIns().token;
 
-    if (token == null || token.isEmpty || token.length < 25) {
+    if (token.isEmpty || token.length < 25) {
       token = "DEFAULT_TOKEN";
     }
 
     options.headers['Authorization'] = token;
-    return super.onRequest(options,handler);
+    return super.onRequest(options, handler);
   }
 }
 
@@ -377,19 +359,19 @@ extension ObservableEx<T> on Stream<T> {
   }
 
   /// 自动刷新token
-  // Observable<T> autoToken() {
-  //   Observable<T> source = this;
-  //
-  //   return Observable.retryWhen(() => source, (e, s) {
-  //     if (e.runtimeType == TempUserMiss) {
-  //       return BaseApi.getGlobalToken().doOnData((event) {
-  //         UserConfig.getIns().token = event;
-  //       });
-  //     } else {
-  //       return Observable.error(e);
-  //     }
-  //   });
-  // }
+// Observable<T> autoToken() {
+//   Observable<T> source = this;
+//
+//   return Observable.retryWhen(() => source, (e, s) {
+//     if (e.runtimeType == TempUserMiss) {
+//       return BaseApi.getGlobalToken().doOnData((event) {
+//         UserConfig.getIns().token = event;
+//       });
+//     } else {
+//       return Observable.error(e);
+//     }
+//   });
+// }
 }
 
 /// 确定业务异常
@@ -407,7 +389,7 @@ Error _resolveError(DataSource event) {
   }
 
   var msg = event.msg;
-  if (msg == null || msg == "") {
+  if (msg.isEmpty) {
     return BaseMiss(code: event.code);
   }
 

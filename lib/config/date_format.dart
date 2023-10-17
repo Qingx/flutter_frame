@@ -11,7 +11,7 @@ class DateFormat {
 
   ///2020/12/12
   static String getYYYYMMDD(int time) {
-    if (time == null || time < 1000) return "";
+    if (time < 1000) return "";
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     return formatDate(dateTime, yyyymmdd);
@@ -19,7 +19,7 @@ class DateFormat {
 
   ///12:12 分秒
   static String getNNSS(int time) {
-    if (time == null || time < 1000) return "";
+    if (time < 1000) return "";
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     return formatDate(dateTime, nnss);
@@ -27,7 +27,7 @@ class DateFormat {
 
   ///12:12 时分
   static String getHHNN(int time) {
-    if (time == null || time < 1000) return "";
+    if (time < 1000) return "";
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     return formatDate(dateTime, hhnn);
@@ -35,7 +35,7 @@ class DateFormat {
 
   ///12月12日 12:12
   static String getMMDDHHMM(int time) {
-    if (time == null || time < 1000) return "";
+    if (time < 1000) return "";
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     return formatDate(dateTime, mmddhhnn);
@@ -43,7 +43,7 @@ class DateFormat {
 
   ///2020/12/12 12:12
   static String getYYYYMMDDHHNN(int time) {
-    if (time == null || time < 1000) return "";
+    if (time < 1000) return "";
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     return formatDate(dateTime, yyyymmddhhnn);
@@ -51,7 +51,7 @@ class DateFormat {
 
   ///12/12/12
   static String getYYMMDD(int time) {
-    if (time == null || time < 1000) return "";
+    if (time < 1000) return "";
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     return formatDate(dateTime, yymmdd);
@@ -88,7 +88,7 @@ class DateFormat {
 
   /// 中午时间格式
   static String getMMdd_HHmm_CN(int time) {
-    if (time == null || time < 1000) return "";
+    if (time < 1000) return "";
 
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     return formatDate(dateTime, mmddhhnn);

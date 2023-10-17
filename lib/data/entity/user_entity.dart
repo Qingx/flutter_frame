@@ -22,6 +22,10 @@ class UserEntity {
 
   Map<String, dynamic> toJson() => $UserEntityToJson(this);
 
+  factory UserEntity.empty() {
+    return UserEntity(phone: "0123456789");
+  }
+
   @override
   String toString() {
     return jsonEncode(this);

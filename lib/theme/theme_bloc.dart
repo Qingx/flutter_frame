@@ -14,7 +14,6 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
                   : ThemeState.Dark,
         );
 
-  @override
   Stream<ThemeState> mapEventToState(ThemeEvent event) async* {
     if (event is ThemeInitEvent) {
       yield _doInitState(state);

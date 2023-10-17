@@ -2,20 +2,19 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:may/config/base_theme.dart';
 import 'package:may/config/base_tool.dart';
 
 extension FunMap on Map {
   bool isNullOrEmpty() {
-    return !(this != null && this.length > 0);
+    return !(length > 0);
   }
 }
 
 extension FunList on List {
   bool isNullOrEmpty() {
-    return !(this != null && this.length > 0);
+    return !(length > 0);
   }
 }
 
@@ -35,11 +34,11 @@ extension FunString on String {
   void get toast => BaseTool.toast(this);
 
   bool isNullOrEmpty() {
-    return this == null || this.isEmpty;
+    return isEmpty;
   }
 
   String hidePhoneNumber() {
-    return this.replaceRange(3, 11, "********");
+    return replaceRange(3, 11, "********");
   }
 
   Map<String, String> getPathValue() {
